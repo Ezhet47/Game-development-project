@@ -12,8 +12,6 @@ public class InteractionDetect : MonoBehaviour
 
         if (canpress)
         {
-
-            
             buttonSprite.transform.localScale = -playerTrans.localScale;
 
         }

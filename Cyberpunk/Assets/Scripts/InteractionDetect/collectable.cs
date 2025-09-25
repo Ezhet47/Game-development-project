@@ -29,8 +29,8 @@ public class collectable : MonoBehaviour
         {
             collide = false;
             otherScript.canpress = false;
-            ComponentsCount.Instance.totalComponents += score;
-            ComponentsCount.Instance.UpdateTotalScore();
+            componentCount.Instance.totalComponents += score;
+            componentCount.Instance.UpdateTotalScore();
             Destroy(gameObject);
         }
     }

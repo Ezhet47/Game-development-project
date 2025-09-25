@@ -1,24 +1,19 @@
 using UnityEngine;
 using TMPro;
 
-public class ComponentsCount : MonoBehaviour
+public class componentCount : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int totalComponents;
-    public TextMeshProUGUI ComponentsText;
-    public static ComponentsCount Instance;
+    public TextMeshProUGUI componentText;
+    public static componentCount Instance;
     void Start()
     {
         Instance = this;
+        UpdateTotalScore();
     }
 
     public void UpdateTotalScore()
     {
-        this.ComponentsText.text = totalComponents.ToString();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.componentText.text = totalComponents.ToString("00");
     }
 }
