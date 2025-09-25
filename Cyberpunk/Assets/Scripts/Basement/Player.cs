@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public PlayerInputSet input { get; private set; }
-
+    private SpriteRenderer sr;
     private StateMachine stateMachine;
 
 
@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>(); // ÕÒµ½½ÇÉ«µÄ SpriteRenderer
 
         stateMachine = new StateMachine();
         input = new PlayerInputSet();
-
 
         idleState = new Player_IdleState(this, stateMachine, "idle");
         moveState = new Player_MoveState(this, stateMachine, "move");
@@ -71,12 +71,20 @@ public class Player : MonoBehaviour
         HandleFlip(xVelocity);
     }
 
-    private void HandleFlip(float xVelcoity)
+    private void HandleFlip(float xVelocity)
     {
-        if (xVelcoity > 0 && facingRight == false)
-            Flip();
-        else if (xVelcoity < 0 && facingRight)
-            Flip();
+        if (xVelocity > 0)
+        {
+            sr.flipX = false;
+            facingRight = true;
+            facingDir = 1;
+        }
+        else if (xVelocity < 0)
+        {
+            sr.flipX = true;
+            facingRight = false;
+            facingDir = -1;
+        }
     }
 
     public void Flip()
