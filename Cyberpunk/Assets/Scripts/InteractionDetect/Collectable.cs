@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class collectable : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
     private int score = 1;
     private bool collide = true;
@@ -29,8 +29,8 @@ public class collectable : MonoBehaviour
         {
             collide = false;
             otherScript.canpress = false;
-            componentCount.Instance.totalComponents += score;
-            componentCount.Instance.UpdateTotalScore();
+            ComponentCount.instance.totalComponents += score;
+            ComponentCount.instance.UpdateTotalScore();
             Destroy(gameObject);
         }
     }

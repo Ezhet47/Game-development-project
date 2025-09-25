@@ -1,14 +1,14 @@
 using UnityEngine;
 using TMPro;
 
-public class componentCount : MonoBehaviour
+public class ComponentCount : MonoBehaviour
 {
     public int totalComponents;
     public TextMeshProUGUI componentText;
-    public static componentCount Instance;
+    public static ComponentCount instance;
     void Start()
     {
-        Instance = this;
+        instance = this;
         UpdateTotalScore();
     }
 
