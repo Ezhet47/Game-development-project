@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 08d2f266790cc4348aa8a324bc4d7dee
+guid: 08174309e73ed294ba944a2e4afea8ef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5229100390523230318
-    second: idle_reflection1_0
+      213: 5203021520078743419
+    second: idle_PlayerWithReflection2_0
+  - first:
+      213: 2934573457851110433
+    second: idle_PlayerWithReflection2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,10 +103,32 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_reflection1_0
+      name: idle_PlayerWithReflection2_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
+        y: 38
+        width: 24
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b77a1077188d43840800000000000000
+      internalID: 5203021520078743419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_PlayerWithReflection2_1
+      rect:
+        serializedVersion: 2
+        x: 1
         y: 0
         width: 24
         height: 39
@@ -115,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e685ef7a91f719840800000000000000
-      internalID: 5229100390523230318
+      spriteID: 124518a0303b9b820800000000000000
+      internalID: 2934573457851110433
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      idle_PlayerWithReflection2_0: 5203021520078743419
+      idle_PlayerWithReflection2_1: 2934573457851110433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

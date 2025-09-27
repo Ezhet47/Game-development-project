@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      street_reflection_01_0: 4498331987494277303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
