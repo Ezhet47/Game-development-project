@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Teleport : MonoBehaviour
 {
     [Header("Blackout")]
     public Image blackScreen;             
-    public float fadeDuration = 1f;       
-    public string targetScene = "MainScene";
+    public float fadeDuration = 1f;      
 
     [Header("Interaction")]
     public InteractionDetect otherScript; 
@@ -39,11 +37,11 @@ public class Teleport : MonoBehaviour
         {
             collide = false;
             otherScript.canpress = false;
-            StartCoroutine(FadeOutAndLoad(targetScene));
+            StartCoroutine(FadeOutAndReturnToPanel());
         }
     }
 
-    private IEnumerator FadeOutAndLoad(string sceneName)
+    private IEnumerator FadeOutAndReturnToPanel()
     {
         float t = 0f;
         Color c = blackScreen.color;
@@ -55,7 +53,8 @@ public class Teleport : MonoBehaviour
             blackScreen.color = c;
             yield return null;
         }
-
-        SceneManager.LoadScene(sceneName);
+        GameManager.Instance.PuzzleCompleted = false;
+        GameManager.Instance.HasPlayedPuzzle = false;
+        GameManager.Instance.GoToMainScene();
     }
 }
