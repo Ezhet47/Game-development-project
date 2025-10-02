@@ -146,7 +146,8 @@ public class PipeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         GameManager.Instance.PuzzleCompleted = true;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        GameManager.Instance.GoToMainScene();
+
     }
 
 

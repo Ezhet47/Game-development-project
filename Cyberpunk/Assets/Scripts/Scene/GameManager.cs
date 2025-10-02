@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    private void Start()
+    {
+        var fadeScreen = FindFadeScreenUI();
+        if (fadeScreen != null) fadeScreen.DoFadeIn();
+    }
 
     private const string MainScene = "MainScene";
     private const string PuzzleScene = "PuzzleScene";
@@ -24,18 +32,31 @@ public class GameManager : MonoBehaviour
     public bool PuzzleCompleted = false;
     public bool HasPlayedPuzzle = false;
 
-    public void GoToPuzzleScene()
+    public void GoToPuzzleScene() => StartCoroutine(LoadSceneWithFade(PuzzleScene));
+    public void GoToMainScene()   => StartCoroutine(LoadSceneWithFade(MainScene));
+    public void GoToCollection()  => StartCoroutine(LoadSceneWithFade(Collection));
+
+    private UI_FadeScreen FindFadeScreenUI()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(PuzzleScene);
+        return FindFirstObjectByType<UI_FadeScreen>();
     }
 
-    public void GoToMainScene()
+    private IEnumerator LoadSceneWithFade(string sceneName)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(MainScene);
-    }
+        var fadeScreen = FindFadeScreenUI();
+        if (fadeScreen != null)
+        {
+            fadeScreen.DoFadeOut();
+            yield return fadeScreen.fadeEffectCo;
+        }
 
-    public void GoToCollection()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(Collection);
+        SceneManager.LoadScene(sceneName);
+        yield return null;
+
+        fadeScreen = FindFadeScreenUI();
+        if (fadeScreen != null)
+        {
+            fadeScreen.DoFadeIn();
+        }
     }
 }
