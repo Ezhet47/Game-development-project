@@ -501,8 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73f4dd9b5a94ab45b154d262c9aafce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackScreen: {fileID: 1642405570}
-  fadeDuration: 1
   otherScript: {fileID: 1467587297}
 --- !u!1 &271775033
 GameObject:
@@ -3610,7 +3608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2139176466
 RectTransform:
   m_ObjectHideFlags: 0
