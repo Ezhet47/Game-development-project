@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
+    [HideInInspector] public bool IsDraggable = false;
+
     [HideInInspector] public bool IsFilled;
     [HideInInspector] public int PipeType;
 
@@ -54,6 +56,8 @@ public class Pipe : MonoBehaviour
         {
             connectBoxes.Add(currentPipe.GetChild(i));
         }
+
+        UpdateFilled();
     }
 
     public void UpdateInput()
@@ -65,6 +69,9 @@ public class Pipe : MonoBehaviour
 
         rotation = (rotation + 1) % (maxRotation + 1);
         currentPipe.transform.eulerAngles = new Vector3(0, 0, rotation * rotationMultiplier);
+
+        if (PipeManager.Instance != null)
+            PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
     }
 
     public void UpdateFilled()
@@ -74,34 +81,80 @@ public class Pipe : MonoBehaviour
         filledSprite.gameObject.SetActive(IsFilled);
     }
 
-    public List<Pipe> ConnectedPipes()
+    public bool[] GetOpenings()
     {
-        List<Pipe> result = new List<Pipe>();
+        bool[] openings = new bool[4];
+        if (connectBoxes == null) return openings;
 
         foreach (var box in connectBoxes)
         {
-            RaycastHit2D[] hit = Physics2D.RaycastAll(box.transform.position, Vector2.zero, 0.1f);
-            //for (int i = 0; i < hit.Length; i++)
-            //{
-            //    result.Add(hit[i].collider.transform.parent.parent.GetComponent<Pipe>());
-            //}
-            for (int i = 0; i < hit.Length; i++)
+            Vector2 d = (Vector2)(box.position - transform.position); 
+
+            if (Mathf.Abs(d.x) > Mathf.Abs(d.y))
             {
-                if (hit[i].collider == null) continue;
-
-                Transform t = hit[i].collider.transform;
-
-                Transform target = t.parent != null ? t.parent.parent : null;
-                if (target == null) continue;
-
-                Pipe pipe = target.GetComponent<Pipe>();
-                if (pipe != null)
-                {
-                    result.Add(pipe);
-                }
+                if (d.x > 0.05f) openings[1] = true;   // Right
+                else if (d.x < -0.05f) openings[3] = true; // Left
             }
+            else
+            {
+                if (d.y > 0.05f) openings[0] = true;   // Top
+                else if (d.y < -0.05f) openings[2] = true; // Bottom
+            }
+        }
+        return openings;
+    }
+
+    public List<Pipe> ConnectedPipes()
+    {
+        List<Pipe> result = new List<Pipe>();
+        PipeManager mgr = PipeManager.Instance;
+
+        int row, col;
+        mgr.WorldToCell(transform.position, out row, out col);
+
+        bool[] myOpen = GetOpenings();
+
+        // Top
+        if (myOpen[0])
+        {
+            Pipe n = mgr.GetPipe(row + 1, col);
+            if (n != null && n.GetOpenings()[2]) result.Add(n);
+        }
+        // Right
+        if (myOpen[1])
+        {
+            Pipe n = mgr.GetPipe(row, col + 1);
+            if (n != null && n.GetOpenings()[3]) result.Add(n);
+        }
+        // Bottom
+        if (myOpen[2])
+        {
+            Pipe n = mgr.GetPipe(row - 1, col);
+            if (n != null && n.GetOpenings()[0]) result.Add(n);
+        }
+        // Left
+        if (myOpen[3])
+        {
+            Pipe n = mgr.GetPipe(row, col - 1);
+            if (n != null && n.GetOpenings()[1]) result.Add(n);
         }
 
         return result;
+    }
+
+
+    public int GetRotationIndex() { return rotation; }
+
+    public void SetRotationIndex(int rot)
+    {
+        rotation = ((rot % (maxRotation + 1)) + (maxRotation + 1)) % (maxRotation + 1);
+        if (currentPipe != null)
+            currentPipe.transform.eulerAngles = new Vector3(0, 0, rotation * rotationMultiplier);
+    }
+
+    public void RefreshInput()
+    {
+        if (currentPipe != null)
+            currentPipe.transform.eulerAngles = new Vector3(0, 0, rotation * 90);
     }
 }
