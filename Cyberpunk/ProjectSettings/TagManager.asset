@@ -52,8 +52,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Glow
-    uniqueID: 4221426951
-    locked: 0
   m_RenderingLayers:
   - Default

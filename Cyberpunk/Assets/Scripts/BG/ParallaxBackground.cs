@@ -11,15 +11,12 @@ public class ParallaxBackground : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
-        UpdateCameraWidth();    
+        cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect;
         InitializeLayers();
     }
 
     private void FixedUpdate()
     {
-     
-        UpdateCameraWidth();
-
         float currentCameraPositionX = mainCamera.transform.position.x;
         float distanceToMove = currentCameraPositionX - lastCameraPositionX;
         lastCameraPositionX = currentCameraPositionX;
@@ -38,16 +35,5 @@ public class ParallaxBackground : MonoBehaviour
     {
         foreach (ParallaxLayer layer in backgroundLayers)
             layer.CalculateImageWidth();
-    }
-
-    private void UpdateCameraWidth()
-    {
-        if (mainCamera == null) return;
-
-        float currentHalfWidth = mainCamera.orthographicSize * mainCamera.aspect;
-        if (!Mathf.Approximately(currentHalfWidth, cameraHalfWidth))
-        {
-            cameraHalfWidth = currentHalfWidth;
-        }
     }
 }
