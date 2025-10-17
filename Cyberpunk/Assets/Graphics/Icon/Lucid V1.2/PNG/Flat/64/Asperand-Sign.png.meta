@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Asperand-Sign_0: 2495113719618828919
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

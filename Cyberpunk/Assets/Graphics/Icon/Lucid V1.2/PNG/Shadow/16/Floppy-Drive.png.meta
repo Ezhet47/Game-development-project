@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Floppy-Drive_0: -1626570117965912691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
