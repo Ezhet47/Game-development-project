@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Speaker-Crossed_0: 8222966975741447445
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
