@@ -122,13 +122,13 @@ public class ScannerTool : MonoBehaviour
     public void SetModeVerification()
     {
         mode = ScanMode.Verification;
-        Debug.Log("Switch the scanner to verification mode");
+        //Debug.Log("Switch the scanner to verification mode");
     }
 
     public void SetModeDiagnosis()
     {
         mode = ScanMode.Diagnosis;
-        Debug.Log("Switch the scanner to diagnosis mode");
+        //Debug.Log("Switch the scanner to diagnosis mode");
     }
     public void ResetScanner()
     {

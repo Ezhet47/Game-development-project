@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    private int score = 1;                 // Èç¹û²»ÐèÒª¼Ó·Ö¿É¸ÄÎª 0 »òÉ¾µôÏà¹ØÁ½ÐÐ
+    private int score = 1;                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ó·Ö¿É¸ï¿½Îª 0 ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private bool collide = true;
     private bool playerInRange = false;
 
-    public InteractionDetect otherScript;  // Íæ¼ÒÉíÉÏµÄ InteractionDetect£¨Inspector ÍÏÈë£©
-    public Transform focusPoint;           // QTE¾µÍ·ÓëUI¶Ô½¹µã£¬¿ÕÔòÓÃÎïÌå×ÔÉí
+    public InteractionDetect otherScript;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ InteractionDetectï¿½ï¿½Inspector ï¿½ï¿½ï¿½ë£©
+    public Transform focusPoint;           // QTEï¿½ï¿½Í·ï¿½ï¿½UIï¿½Ô½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private Player cachedPlayer;
 
@@ -34,42 +34,47 @@ public class Collectable : MonoBehaviour
     {
         if (playerInRange && collide && Input.GetKeyDown(KeyCode.E))
         {
-            // ·À¶¶£º½øÈëQTEÇ°¹ØÌáÊ¾+ËøÒ»´Î´¥·¢
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QTEÇ°ï¿½ï¿½ï¿½ï¿½Ê¾+ï¿½ï¿½Ò»ï¿½Î´ï¿½ï¿½ï¿½
             collide = false;
             if (otherScript) otherScript.canpress = false;
 
-            // ¶³½áÍæ¼ÒÒÆ¶¯
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
             if (cachedPlayer) cachedPlayer.canMove = false;
 
-            // Éè¶¨¶Ô½¹µã
+            // ï¿½è¶¨ï¿½Ô½ï¿½ï¿½ï¿½
             Transform focus = focusPoint ? focusPoint : transform;
 
-            // Æô¶¯QTE
+            // ï¿½ï¿½ï¿½ï¿½QTE
             UI_QTE.Instance.StartSkillCheck(
                 focus,
                 success: () =>
                 {
-                    // »Ö¸´ÒÆ¶¯
+                    // ï¿½Ö¸ï¿½ï¿½Æ¶ï¿½
                     if (cachedPlayer) cachedPlayer.canMove = true;
 
-                    // ¿ÉÑ¡£º¼Ó·Ö£¨ÄãµÄ¹¤³ÌÀïÊÇ ComponentCount.instance£©
+                    // ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ó·Ö£ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ComponentCount.instanceï¿½ï¿½
                     if (ComponentCount.instance != null && score != 0)
                     {
                         ComponentCount.instance.totalComponents += score;
                         ComponentCount.instance.UpdateTotalScore();
                     }
 
-                    // ³É¹¦£ºÏú»Ù
+                    // ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     Destroy(gameObject);
                 },
                 fail: () =>
                 {
-                    // Ê§°Ü£º»Ö¸´¿ÉÖØÊÔ
+                    // Ê§ï¿½Ü£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (cachedPlayer) cachedPlayer.canMove = true;
                     collide = true;
                     if (otherScript) otherScript.canpress = true;
                 }
             );
+            otherScript.canpress = false;
+            ComponentCount.instance.totalComponents += score;
+            ComponentCount.instance.UpdateTotalScore();
+            GameManager.Instance.HasCollected = true;
+            Destroy(gameObject);
         }
     }
 }

@@ -8,7 +8,7 @@ public class PipeManager : MonoBehaviour
 
     [SerializeField] private LevelData _level;
     [SerializeField] private GameObject _cellPrefab;
-    public float cellSize = 1f;   
+    //public float cellSize = 1f;   
 
 
     private bool hasGameFinished;
@@ -38,7 +38,7 @@ public class PipeManager : MonoBehaviour
             {
                 Vector2 spawnPos = new Vector2(j + 0.5f, i + 0.5f);
                 GameObject cellGO = Instantiate(_cellPrefab, spawnPos, Quaternion.identity);
-                cellGO.transform.localScale = Vector3.one * cellSize;
+                //cellGO.transform.localScale = Vector3.one * cellSize;
 
                 Pipe tempPipe = cellGO.GetComponentInChildren<Pipe>();
                 tempPipe.Init(_level.Data[i * _level.Column + j]);
@@ -62,9 +62,12 @@ public class PipeManager : MonoBehaviour
 
         Vector3 cameraPos = Camera.main.transform.position;
 
-        cameraPos.x = _level.Column * cellSize * 0.5f;
-        cameraPos.y = _level.Row * cellSize * 0.5f;
-        Camera.main.orthographicSize = Mathf.Max(_level.Row, _level.Column) * cellSize * 0.5f + 3f * cellSize;
+        //cameraPos.x = _level.Column * cellSize * 0.5f;
+        //cameraPos.y = _level.Row * cellSize * 0.5f;
+        //Camera.main.orthographicSize = Mathf.Max(_level.Row, _level.Column) * cellSize * 0.5f + 3f * cellSize;
+        cameraPos.x = _level.Column * 0.5f;
+        cameraPos.y = _level.Row * 0.5f;
+        Camera.main.orthographicSize = Mathf.Max(_level.Row, _level.Column) * 0.5f + 3f;
 
         Camera.main.transform.position = cameraPos;
 
@@ -174,7 +177,7 @@ public class PipeManager : MonoBehaviour
     private IEnumerator GameFinished()
     {
         yield return new WaitForSeconds(1.5f);
-        Debug.Log("Repair complete. Entering verification phase.");
+        //Debug.Log("Repair complete. Entering verification phase.");
         GameManager.Instance.PuzzleCompleted = true;
 
         ClearBoard();
@@ -195,10 +198,10 @@ public class PipeManager : MonoBehaviour
 
     public void SpawnExternalPipe()
     {
-        //float spawnX = _level.Column + 2f;      
-        //float spawnY = _level.Row * 0.5f;     
-        float spawnX = _level.Column * cellSize + 2f * cellSize;
-        float spawnY = _level.Row * cellSize * 0.5f;
+        float spawnX = _level.Column + 2f;      
+        float spawnY = _level.Row * 0.5f;     
+        //float spawnX = _level.Column * cellSize + 2f * cellSize;
+        //float spawnY = _level.Row * cellSize * 0.5f;
 
 
         Vector2 spawnPos = new Vector2(spawnX, spawnY);
@@ -207,7 +210,7 @@ public class PipeManager : MonoBehaviour
 
         int pipeType = Mathf.Clamp(externalFixedType, 0, 6); 
         externalPipe.Init(pipeType);
-        externalPipe.transform.localScale = Vector3.one * cellSize;
+        //externalPipe.transform.localScale = Vector3.one * cellSize;
 
         externalPipe.IsDraggable = true;
     }
@@ -231,7 +234,7 @@ public class PipeManager : MonoBehaviour
 
         dragged.transform.position = GetCellCenter(row, col);
 
-        dragged.transform.localScale = Vector3.one * cellSize;
+        //dragged.transform.localScale = Vector3.one * cellSize;
 
         dragged.IsDraggable = true;
 
@@ -251,18 +254,18 @@ public class PipeManager : MonoBehaviour
 
     public void WorldToCell(Vector3 worldPos, out int row, out int col)
     {
-        //row = Mathf.RoundToInt(worldPos.y - 0.5f);
-        //col = Mathf.RoundToInt(worldPos.x - 0.5f);
-        row = Mathf.RoundToInt((worldPos.y - cellSize / 2f) / cellSize);
-        col = Mathf.RoundToInt((worldPos.x - cellSize / 2f) / cellSize);
+        row = Mathf.RoundToInt(worldPos.y - 0.5f);
+        col = Mathf.RoundToInt(worldPos.x - 0.5f);
+        //row = Mathf.RoundToInt((worldPos.y - cellSize / 2f) / cellSize);
+        //col = Mathf.RoundToInt((worldPos.x - cellSize / 2f) / cellSize);
 
     }
 
     public Vector2 GetCellCenter(int row, int col)
     {
-        //return new Vector2(col + 0.5f, row + 0.5f);
-        return new Vector2(col * cellSize + cellSize / 2f,
-                   row * cellSize + cellSize / 2f);
+        return new Vector2(col + 0.5f, row + 0.5f);
+        //return new Vector2(col * cellSize + cellSize / 2f,
+                  // row * cellSize + cellSize / 2f);
 
     }
 
@@ -303,7 +306,7 @@ public class PipeManager : MonoBehaviour
 
         if (removedCount >= totalScrews)
         {
-            Debug.Log("All screws removed. Accessing internal structure...");
+            //Debug.Log("All screws removed. Accessing internal structure...");
             CurrentStage = GameStage.Repair;
 
             if (panelManager != null)
@@ -357,7 +360,7 @@ public class PipeManager : MonoBehaviour
             externalPipe = null;
         }
 
-        Debug.Log("Board cleared");
+        //Debug.Log("Board cleared");
     }
 
 
