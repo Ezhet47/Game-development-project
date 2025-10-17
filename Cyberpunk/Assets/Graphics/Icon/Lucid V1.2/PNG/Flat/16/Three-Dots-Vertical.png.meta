@@ -184,10 +184,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Three-Dots-Vertical_0: -1693650214666185872
-      Three-Dots-Vertical_1: 7326835108487179227
-      Three-Dots-Vertical_2: -332964122610259154
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
