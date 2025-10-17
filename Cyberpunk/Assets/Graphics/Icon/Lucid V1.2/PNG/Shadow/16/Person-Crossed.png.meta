@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Person-Crossed_0: 213407015211693733
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

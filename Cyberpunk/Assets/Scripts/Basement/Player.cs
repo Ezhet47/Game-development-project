@@ -9,11 +9,11 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
     private StateMachine stateMachine;
 
-
+    public bool canMove = true;   // ? 新增：可移动开关
 
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
-    
+
     public float moveSpeed;
     private bool facingRight = true;
     public int facingDir { get; private set; } = 1;
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponentInChildren<SpriteRenderer>(); // 找到角色的 SpriteRenderer
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         stateMachine = new StateMachine();
         input = new PlayerInputSet();
@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         input.Enable();
-
         input.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         input.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
     }
@@ -56,11 +55,18 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-         stateMachine.Initialize(idleState);
+        stateMachine.Initialize(idleState);
     }
 
     private void Update()
     {
+        // ? 冻结移动：清速度并跳过状态机更新
+        if (!canMove)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         HandleCollisionDetection();
         stateMachine.UpdateActiveState();
     }
@@ -100,7 +106,6 @@ public class Player : MonoBehaviour
         wallDetected = Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround)
                     && Physics2D.Raycast(secondaryWallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
     }
-
 
     private void OnDrawGizmos()
     {
