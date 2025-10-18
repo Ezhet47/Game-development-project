@@ -7,7 +7,12 @@ public class ScannerTool : MonoBehaviour
 {
     public static ScannerTool Instance;
 
-    public RectTransform scannerIcon;   
+    public RectTransform scannerIcon;
+    public Image scannerImage;               
+    public Sprite normalSprite;               // Puzzle_scene_scanner_2
+    public Sprite successSprite;              // Puzzle_scene_scanner_0
+    public Sprite errorSprite;                // Puzzle_scene_scanner_1
+
     public GameObject hintPrefab;       
     public GameObject[] scanPoints;     
     public int brokenPartIndex = 3;     
@@ -23,12 +28,15 @@ public class ScannerTool : MonoBehaviour
     {
         Instance = this;
         originalPos = scannerIcon.anchoredPosition;
+
+        if (scannerImage != null && normalSprite != null)
+            scannerImage.sprite = normalSprite;
+
         if (PipeManager.Instance != null &&
-    PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
+            PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
         {
             SetModeVerification();
         }
-
     }
 
 
@@ -94,6 +102,10 @@ public class ScannerTool : MonoBehaviour
             outline.effectColor = Color.red;
             outline.effectDistance = new Vector2(4, 4);
         }
+
+        if (scannerImage != null && errorSprite != null)
+            scannerImage.sprite = errorSprite;
+
     }
 
     private IEnumerator ShowSuccess(GameObject point)
@@ -114,6 +126,19 @@ public class ScannerTool : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         img.color = baseColor;
+
+        if (scannerImage != null && successSprite != null)
+            scannerImage.sprite = successSprite;
+
+        for (int i = 0; i < 6; i++)
+        {
+            img.color = (i % 2 == 0) ? flashColor : baseColor;
+            yield return new WaitForSeconds(0.2f);
+        }
+        img.color = baseColor;
+
+        if (scannerImage != null && normalSprite != null)
+            scannerImage.sprite = normalSprite;
     }
 
     public enum ScanMode { Diagnosis, Verification }
@@ -122,20 +147,21 @@ public class ScannerTool : MonoBehaviour
     public void SetModeVerification()
     {
         mode = ScanMode.Verification;
-        Debug.Log("Switch the scanner to verification mode");
+        //Debug.Log("Switch the scanner to verification mode");
     }
 
     public void SetModeDiagnosis()
     {
         mode = ScanMode.Diagnosis;
-        Debug.Log("Switch the scanner to diagnosis mode");
+        //Debug.Log("Switch the scanner to diagnosis mode");
     }
     public void ResetScanner()
     {
         detected = false;
         scannerIcon.anchoredPosition = originalPos;
+        if (scannerImage != null && normalSprite != null)
+            scannerImage.sprite = normalSprite;
     }
-
 
 
 }
