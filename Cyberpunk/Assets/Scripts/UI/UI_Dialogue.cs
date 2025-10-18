@@ -24,6 +24,9 @@ public class UI_Dialogue : MonoBehaviour
     private bool waitingToConfirm;
     private bool canInteract;
     
+    [SerializeField] private AudioSource typeSfxSource;
+    [SerializeField] private AudioClip typeSfx;
+    
     private void Awake()
     {
         ui = GetComponentInParent<UI>();
@@ -148,6 +151,10 @@ public class UI_Dialogue : MonoBehaviour
         foreach (char letter in text)
         {
             dialogueText.text += letter;
+            
+            if (typeSfx != null && typeSfxSource != null && !char.IsWhiteSpace(letter))
+                typeSfxSource.PlayOneShot(typeSfx);
+            
             yield return new WaitForSeconds(textSpeed);
         }
 
@@ -171,7 +178,6 @@ public class UI_Dialogue : MonoBehaviour
         canInteract = true;
     }
     
-    // UI_Dialogue.cs
     private void OnEnable()
     {
         if (ui != null && ui.inGameUI != null)
