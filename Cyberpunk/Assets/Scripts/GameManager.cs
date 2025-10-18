@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public bool PuzzleCompleted = false;
     public bool HasPlayedPuzzle = false;
+    public bool HasCollected = false;
 
     public void GoToMainMenu()   => StartCoroutine(LoadSceneWithFade(MainMenu));
     public void GoToMainScene()   => StartCoroutine(LoadSceneWithFade(MainScene));

@@ -57,7 +57,9 @@ public class Collectable : MonoBehaviour
                     {
                         ComponentCount.instance.totalComponents += score;
                         ComponentCount.instance.UpdateTotalScore();
+                        
                     }
+                    GameManager.Instance.HasCollected = true;
 
                     // ³É¹¦£ºÏú»Ù
                     Destroy(gameObject);
