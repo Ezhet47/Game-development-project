@@ -18,7 +18,7 @@ public class Screw : MonoBehaviour
     private System.Collections.IEnumerator RemoveScrew()
     {
         removed = true;
-        Debug.Log($"{name} ¿ªÊ¼²ð³ý");
+        //Debug.Log($"{name} Starts being removed");
 
         float duration = 0.5f;
         float elapsed = 0f;

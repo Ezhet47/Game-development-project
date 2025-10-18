@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PanelManager : MonoBehaviour
 {
@@ -69,12 +70,22 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(true);
         //Debug.Log("Display Panel_Test (Verification)");
+
+        StartCoroutine(ReturnToMainAfterDelay(4f));
     }
 
     public void ReturnToMain()
     {
         GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
+        GameManager.Instance.GoToMainScene();
+    }
+
+    private IEnumerator ReturnToMainAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        //GameManager.Instance.PuzzleCompleted = false;
+        //GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainScene();
     }
 }

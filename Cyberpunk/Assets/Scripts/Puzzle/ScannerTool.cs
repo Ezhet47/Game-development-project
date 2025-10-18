@@ -17,7 +17,7 @@ public class ScannerTool : MonoBehaviour
     public GameObject[] scanPoints;     
     public int brokenPartIndex = 3;     
 
-    public float detectionRadius = 40f;
+    public float detectionRadius = 100f;
     public KeyCode actionKey = KeyCode.F;   
 
     private bool detected = false;     
@@ -43,19 +43,25 @@ public class ScannerTool : MonoBehaviour
 
     public void TryScanAtCursor()
     {
-        if (detected) return;
+        //if (detected) return;
+
+        float offset = 100f; 
+        float angleRad = 30f * Mathf.Deg2Rad;
+        Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
+        Vector2 scanTip = scannerIcon.position + (Vector3)tipOffset;
 
         for (int i = 0; i < scanPoints.Length; i++)
         {
             RectTransform rt = scanPoints[i].GetComponent<RectTransform>();
             Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, rt.position);
-            float dist = Vector2.Distance(screenPos, Input.mousePosition);
+            //float dist = Vector2.Distance(screenPos, Input.mousePosition);
+            float dist = Vector2.Distance(screenPos, scanTip);
 
             if (dist < detectionRadius)
             {
                 if (mode == ScanMode.Diagnosis && i == brokenPartIndex)
                 {
-                    Debug.Log("Abnormal part detected!");
+                    //Debug.Log("Abnormal part detected!");
                     detected = true;
                     //StartCoroutine(ShowError(scanPoints[i]));
                     ShowError(scanPoints[i]);
@@ -66,7 +72,7 @@ public class ScannerTool : MonoBehaviour
 
                 if (mode == ScanMode.Verification)
                 {
-                    Debug.Log("Repair successful!");
+                    //Debug.Log("Repair successful!");
                     detected = true;
                     StartCoroutine(ShowSuccess(scanPoints[i]));
                     break;
@@ -162,6 +168,5 @@ public class ScannerTool : MonoBehaviour
         if (scannerImage != null && normalSprite != null)
             scannerImage.sprite = normalSprite;
     }
-
 
 }

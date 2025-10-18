@@ -38,21 +38,32 @@ public class ToolManager : MonoBehaviour
         {
             Vector2 mousePos = Input.mousePosition;
 
-            float distToScrew = Vector2.Distance(mousePos, screwdriverIcon.position);
-            float distToScan = Vector2.Distance(mousePos, scannerIcon.position);
-
-            if (distToScrew < pickRadius)
+            if (RectTransformUtility.RectangleContainsScreenPoint(screwdriverIcon, mousePos))
             {
                 currentTool = ToolType.Screwdriver;
                 isDragging = true;
-                Debug.Log("Screwdriver selected automatically");
             }
-            else if (distToScan < pickRadius)
+            else if (RectTransformUtility.RectangleContainsScreenPoint(scannerIcon, mousePos))
             {
                 currentTool = ToolType.Scanner;
                 isDragging = true;
-                Debug.Log("Scanner selected automatically");
             }
+
+            //float distToScrew = Vector2.Distance(mousePos, screwdriverIcon.position);
+            //float distToScan = Vector2.Distance(mousePos, scannerIcon.position);
+
+            //if (distToScrew < pickRadius)
+            //{
+            //    currentTool = ToolType.Screwdriver;
+            //    isDragging = true;
+            //    //Debug.Log("Screwdriver selected automatically");
+            //}
+            //else if (distToScan < pickRadius)
+            //{
+            //    currentTool = ToolType.Scanner;
+            //    isDragging = true;
+            //    //Debug.Log("Scanner selected automatically");
+            //}
         }
     }
 
@@ -66,8 +77,9 @@ public class ToolManager : MonoBehaviour
             {
                 case ToolType.Screwdriver:
                     screwdriverIcon.position = Input.mousePosition;
-                    if (Input.GetKeyDown(actionKey))
-                        TryUnscrewAtCursor();
+                    //if (Input.GetKeyDown(actionKey))
+                    //    TryUnscrewAtCursor();
+                    TryUnscrewAtCursor();
                     break;
 
                 case ToolType.Scanner:
@@ -91,7 +103,11 @@ public class ToolManager : MonoBehaviour
 
         screwdriverIcon.anchoredPosition = screwOrigin;
         scannerIcon.anchoredPosition = scanOrigin;
-        Debug.Log("Tool returned and deselected");
+
+        if (ScannerTool.Instance != null)
+            ScannerTool.Instance.ResetScanner();
+
+        //Debug.Log("Tool returned and deselected");
     }
 
     private void TryUnscrewAtCursor()
@@ -100,8 +116,14 @@ public class ToolManager : MonoBehaviour
         EventSystem eventSystem = EventSystem.current;
         if (raycaster == null || eventSystem == null) return;
 
+        float offset = 160f;                            
+        float angleRad = 45f * Mathf.Deg2Rad;       
+        Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
+        Vector2 tipPos = screwdriverIcon.position + (Vector3)tipOffset;
+
         PointerEventData eventData = new PointerEventData(eventSystem);
-        eventData.position = Input.mousePosition;
+        //eventData.position = Input.mousePosition;
+        eventData.position = tipPos;
 
         List<RaycastResult> results = new List<RaycastResult>();
         raycaster.Raycast(eventData, results);
@@ -110,9 +132,15 @@ public class ToolManager : MonoBehaviour
         {
             if (r.gameObject.CompareTag("Screw"))
             {
-                r.gameObject.GetComponent<Screw>()?.StartUnscrew();
-                Debug.Log("F key activated screw removal");
-                return;
+                //r.gameObject.GetComponent<Screw>()?.StartUnscrew();
+                //Debug.Log("F key activated screw removal");
+                //return
+                Screw screw = r.gameObject.GetComponent<Screw>();
+                if (screw != null)
+                {
+                    screw.StartUnscrew();
+                    return; 
+                }
             }
         }
     }
