@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 4bc724f5a93e95f408f5941dfff90c3b
+guid: f403d5f7988f954409b27af861b7e613
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2460942959347057716
-    second: Puzzle_scene_roboticArm2_0
+      213: 791336545582589345
+    second: dialogue_0
+  - first:
+      213: -6875433093473928017
+    second: dialogue_1
+  - first:
+      213: -3401809131681094416
+    second: dialogue_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Puzzle_scene_roboticArm2_0
+      name: dialogue_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 228
-        height: 133
+        x: 4
+        y: 104
+        width: 1502
+        height: 245
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 43441683596072220800000000000000
-      internalID: 2460942959347057716
+      spriteID: 1a52c3145646bfa00800000000000000
+      internalID: 791336545582589345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3
+        width: 1502
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fac7582770e8590a0800000000000000
+      internalID: -6875433093473928017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 22
+        width: 1460
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4e7784e985ac0d0800000000000000
+      internalID: -3401809131681094416
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Puzzle_scene_roboticArm2_0: 2460942959347057716
+      dialogue_0: 791336545582589345
+      dialogue_1: -6875433093473928017
+      dialogue_2: -3401809131681094416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2322,7 +2322,7 @@ MonoBehaviour:
   removeDuration: 0.8
   panelManager: {fileID: 1393449377}
   cyberbodyAnimator: {fileID: 1482630786}
-  introDuration: 5
+  introDuration: 2
   externalPipePrefab: {fileID: 952859252408407860, guid: e6ae6dc808641324e9ee22c749e705c8, type: 3}
   externalFixedType: 4
   externalDropPos: {x: 12, y: -2}
@@ -5488,7 +5488,7 @@ GameObject:
   - component: {fileID: 1872345026}
   - component: {fileID: 1872345025}
   m_Layer: 5
-  m_Name: Part_4 (1)
+  m_Name: Part_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
