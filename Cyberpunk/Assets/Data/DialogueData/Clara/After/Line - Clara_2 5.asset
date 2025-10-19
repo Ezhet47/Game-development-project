@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb2a725872f0a541a5c0118d9d97ec1, type: 3}
+  m_Name: Line - Clara_2 5
+  m_EditorClassIdentifier: 
+  dialogueGroupName: Clara
+  speaker: {fileID: 11400000, guid: 0a3c1567163e35741b954dfa4e77047c, type: 2}
+  textLine: []
+  playerChoiceAnswer: It's not like I have much choice right now.
+  choiceLines:
+  - {fileID: 11400000, guid: 9dd5bd4c12816b94297a673821730630, type: 2}
+  actionLine: Great! You can count on me! I'll reach out to the client as soon as
+    I get back. Wait for my good news!
+  actionType: 2
