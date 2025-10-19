@@ -76,7 +76,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.5, y: 0.32}
   m_EdgeRadius: 0
 --- !u!1 &612575028222442346
 GameObject:
@@ -154,7 +154,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.32, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &2402656336514564772
 GameObject:
@@ -232,7 +232,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.32, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &5481893478840120026
 GameObject:
@@ -310,7 +310,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: bf8673b4dc425ed4f8e8afdbec322db6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d897ead14246f14199e0adccffc7078, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -397,7 +397,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.5, y: 0.32}
   m_EdgeRadius: 0
 --- !u!1 &7640798310676430208
 GameObject:
@@ -512,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ddafe240d64131749881651bb42b605f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74b915bc98169584f8aca7363e18f280, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

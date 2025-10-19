@@ -23,10 +23,6 @@ public class UI_Dialogue : MonoBehaviour
     
     private bool waitingToConfirm;
     private bool canInteract;
-    private bool choicesEnabled;
-    
-    [SerializeField] private AudioSource typeSfxSource;
-    [SerializeField] private AudioClip typeSfx;
     
     private void Awake()
     {
@@ -37,10 +33,7 @@ public class UI_Dialogue : MonoBehaviour
     {
         currentLine = line;
         currentChoices = line.choiceLines;
-        
         canInteract = false;
-        choicesEnabled = false;
-        
         selectedChoice = null;
         selectedChoiceIndex = 0;
 
@@ -86,14 +79,9 @@ public class UI_Dialogue : MonoBehaviour
             CompleteTyping();
 
             if (currentLine.actionType != DialogueActionType.PlayerMakeChoice)
-            {
                 waitingToConfirm = true;
-            }
             else
-            {
-                choicesEnabled = true;
                 HandleNextAction();
-            }
 
             return;
         }
@@ -117,9 +105,6 @@ public class UI_Dialogue : MonoBehaviour
     
     private void ShowChoices()
     {
-        if (!choicesEnabled)
-            return;
-        
         for (int i = 0; i < dialogueChoicesText.Length; i++)
         {
             if (i < currentChoices.Length)
@@ -148,7 +133,7 @@ public class UI_Dialogue : MonoBehaviour
     
     public void NavigateChoice(int direction)
     {
-        if (!choicesEnabled || currentChoices == null || currentChoices.Length <= 1)
+        if (currentChoices == null || currentChoices.Length <= 1)
             return;
 
         selectedChoiceIndex = selectedChoiceIndex + direction;
@@ -163,10 +148,6 @@ public class UI_Dialogue : MonoBehaviour
         foreach (char letter in text)
         {
             dialogueText.text += letter;
-            
-            if (typeSfx != null && typeSfxSource != null && !char.IsWhiteSpace(letter))
-                typeSfxSource.PlayOneShot(typeSfx);
-            
             yield return new WaitForSeconds(textSpeed);
         }
 
@@ -176,7 +157,6 @@ public class UI_Dialogue : MonoBehaviour
         }
         else
         {
-            choicesEnabled = true;
             yield return new WaitForSeconds(0.2f);
             selectedChoice = null;
             HandleNextAction();
@@ -191,6 +171,7 @@ public class UI_Dialogue : MonoBehaviour
         canInteract = true;
     }
     
+    // UI_Dialogue.cs
     private void OnEnable()
     {
         if (ui != null && ui.inGameUI != null)

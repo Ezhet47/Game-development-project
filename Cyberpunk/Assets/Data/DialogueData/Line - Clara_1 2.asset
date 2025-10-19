@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb2a725872f0a541a5c0118d9d97ec1, type: 3}
+  m_Name: Line - Clara_1 2
+  m_EditorClassIdentifier: 
+  dialogueGroupName: Clara
+  speaker: {fileID: 11400000, guid: 0a3c1567163e35741b954dfa4e77047c, type: 2}
+  textLine:
+  - "Aw, come on. I\u2019ll pay you in a couple days. We\u2019re good, right?\r"
+  playerChoiceAnswer: You still owe me for fixing your weapon last time, okay?
+  choiceLines:
+  - {fileID: 11400000, guid: 4f25675ce6a533546b78f7d30e06cb03, type: 2}
+  actionLine: 
+  actionType: 1

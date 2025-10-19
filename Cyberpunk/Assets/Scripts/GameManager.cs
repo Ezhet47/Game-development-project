@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     private const string MainMenu = "MainMenu";
-    private const string MainSceneBefore = "MainSceneBefore";
-    private const string MainSceneAfter = "MainSceneAfter";
+    private const string MainScene = "MainScene";
     private const string PuzzleScene = "PuzzleScene";
     private const string Collection = "Collection";
 
@@ -37,8 +36,7 @@ public class GameManager : MonoBehaviour
 
 
     public void GoToMainMenu()   => StartCoroutine(LoadSceneWithFade(MainMenu));
-    public void GoToMainSceneBefore()   => StartCoroutine(LoadSceneWithFade(MainSceneBefore));
-    public void GoToMainSceneAfter()    => StartCoroutine(LoadSceneWithFade(MainSceneAfter));
+    public void GoToMainScene()   => StartCoroutine(LoadSceneWithFade(MainScene));
     public void GoToPuzzleScene() => StartCoroutine(LoadSceneWithFade(PuzzleScene));
     public void GoToCollection()  => StartCoroutine(LoadSceneWithFade(Collection));
 
