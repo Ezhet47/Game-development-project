@@ -42,11 +42,13 @@ public class ToolManager : MonoBehaviour
             {
                 currentTool = ToolType.Screwdriver;
                 isDragging = true;
+                //Debug.Log("Screwdriver selected automatically");
             }
             else if (RectTransformUtility.RectangleContainsScreenPoint(scannerIcon, mousePos))
             {
                 currentTool = ToolType.Scanner;
                 isDragging = true;
+                //Debug.Log("Scanner selected automatically");
             }
 
             //float distToScrew = Vector2.Distance(mousePos, screwdriverIcon.position);
@@ -103,10 +105,6 @@ public class ToolManager : MonoBehaviour
 
         screwdriverIcon.anchoredPosition = screwOrigin;
         scannerIcon.anchoredPosition = scanOrigin;
-
-        if (ScannerTool.Instance != null)
-            ScannerTool.Instance.ResetScanner();
-
         //Debug.Log("Tool returned and deselected");
     }
 
@@ -132,15 +130,9 @@ public class ToolManager : MonoBehaviour
         {
             if (r.gameObject.CompareTag("Screw"))
             {
-                //r.gameObject.GetComponent<Screw>()?.StartUnscrew();
+                r.gameObject.GetComponent<Screw>()?.StartUnscrew();
                 //Debug.Log("F key activated screw removal");
-                //return
-                Screw screw = r.gameObject.GetComponent<Screw>();
-                if (screw != null)
-                {
-                    screw.StartUnscrew();
-                    return; 
-                }
+                return;
             }
         }
     }

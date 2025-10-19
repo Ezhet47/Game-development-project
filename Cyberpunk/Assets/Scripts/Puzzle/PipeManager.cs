@@ -8,11 +8,7 @@ public class PipeManager : MonoBehaviour
 
     [SerializeField] private LevelData _level;
     [SerializeField] private GameObject _cellPrefab;
-    [SerializeField] private GameObject _backgroundPrefab;
-    [SerializeField] private Vector3 _backgroundOffset = new Vector3(0, 0, 5);
-    [SerializeField] private RectTransform targetPart;  
-    [SerializeField] private float removeDistance = 150f;
-    [SerializeField] private float removeDuration = 0.8f;
+    //public float cellSize = 1f;   
 
 
 
@@ -201,7 +197,7 @@ public class PipeManager : MonoBehaviour
 
         EnterVerification();
 
-        // ��ʾ panel_test
+        // ÏÔÊ¾ panel_test
         if (panelManager != null)
         {
             panelManager.ShowPanelTest();
@@ -215,8 +211,8 @@ public class PipeManager : MonoBehaviour
 
     public void SpawnExternalPipe()
     {
-        float spawnX = _level.Column + 2f;
-        float spawnY = _level.Row * 0.5f;
+        float spawnX = _level.Column + 2f;      
+        float spawnY = _level.Row * 0.5f;     
         //float spawnX = _level.Column * cellSize + 2f * cellSize;
         //float spawnY = _level.Row * cellSize * 0.5f;
 
@@ -282,7 +278,7 @@ public class PipeManager : MonoBehaviour
     {
         return new Vector2(col + 0.5f, row + 0.5f);
         //return new Vector2(col * cellSize + cellSize / 2f,
-        // row * cellSize + cellSize / 2f);
+                  // row * cellSize + cellSize / 2f);
 
     }
 
@@ -324,7 +320,7 @@ public class PipeManager : MonoBehaviour
         if (removedCount >= totalScrews)
         {
             //Debug.Log("All screws removed. Accessing internal structure...");
-            //CurrentStage = GameStage.Repair;
+            CurrentStage = GameStage.Repair;
 
             //if (panelManager != null)
             //{
