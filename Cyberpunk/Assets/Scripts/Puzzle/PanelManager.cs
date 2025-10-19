@@ -71,7 +71,7 @@ public class PanelManager : MonoBehaviour
         panelTest.SetActive(true);
         //Debug.Log("Display Panel_Test (Verification)");
 
-        StartCoroutine(ReturnToMainAfterDelay(4f));
+        StartCoroutine(ReturnToMainAfterDelay(5f));
     }
 
     public void ReturnToMain()

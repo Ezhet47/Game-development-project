@@ -26,7 +26,7 @@ public class PipeManager : MonoBehaviour
     public PanelManager panelManager;
 
     public Animator cyberbodyAnimator;   
-    public float introDuration = 1f;     
+    public float introDuration = 2f;     
 
     private void Awake()
     {

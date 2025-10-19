@@ -50,6 +50,17 @@ public class ScannerTool : MonoBehaviour
         Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
         Vector2 scanTip = scannerIcon.position + (Vector3)tipOffset;
 
+        if (PipeManager.Instance != null && PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
+        {
+            GameObject cyberbody = GameObject.Find("cyberbody");
+            if (cyberbody != null)
+            {
+                detected = true;
+                StartCoroutine(ShowSuccess(cyberbody));
+                return;
+            }
+        }
+
         for (int i = 0; i < scanPoints.Length; i++)
         {
             RectTransform rt = scanPoints[i].GetComponent<RectTransform>();
@@ -94,9 +105,9 @@ public class ScannerTool : MonoBehaviour
 
     private void ShowError(GameObject point)
     {
-        GameObject hint = Instantiate(hintPrefab, point.transform.parent);
-        hint.GetComponentInChildren<TextMeshProUGUI>().text = "Error";
-        hint.transform.position = point.transform.position;
+        //GameObject hint = Instantiate(hintPrefab, point.transform.parent);
+        //hint.GetComponentInChildren<TextMeshProUGUI>().text = "Error";
+        //hint.transform.position = point.transform.position;
 
         Image img = point.GetComponent<Image>();
         if (img != null)
@@ -106,7 +117,7 @@ public class ScannerTool : MonoBehaviour
                 outline = point.AddComponent<Outline>();
 
             outline.effectColor = Color.red;
-            outline.effectDistance = new Vector2(4, 4);
+            outline.effectDistance = new Vector2(6, 6);
         }
 
         if (scannerImage != null && errorSprite != null)
@@ -116,35 +127,21 @@ public class ScannerTool : MonoBehaviour
 
     private IEnumerator ShowSuccess(GameObject point)
     {
-        GameObject hint = Instantiate(hintPrefab, point.transform.parent);
-        hint.GetComponentInChildren<TextMeshProUGUI>().text = "Success";
-        hint.transform.position = point.transform.position;
-
         Image img = point.GetComponent<Image>();
-        if (img == null) yield break;
-
-        Color baseColor = img.color;
-        Color flashColor = Color.green;
-
-        for (int i = 0; i < 6; i++)
+        if (img != null)
         {
-            img.color = (i % 2 == 0) ? flashColor : baseColor;
-            yield return new WaitForSeconds(0.2f);
+            var outline = point.GetComponent<Outline>();
+            if (outline == null)
+                outline = point.AddComponent<Outline>();
+
+            outline.effectColor = Color.green;
+            outline.effectDistance = new Vector2(8, 8);
         }
-        img.color = baseColor;
 
         if (scannerImage != null && successSprite != null)
             scannerImage.sprite = successSprite;
 
-        for (int i = 0; i < 6; i++)
-        {
-            img.color = (i % 2 == 0) ? flashColor : baseColor;
-            yield return new WaitForSeconds(0.2f);
-        }
-        img.color = baseColor;
-
-        if (scannerImage != null && normalSprite != null)
-            scannerImage.sprite = normalSprite;
+        yield return null;
     }
 
     public enum ScanMode { Diagnosis, Verification }
