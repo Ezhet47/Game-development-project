@@ -8,7 +8,7 @@ public class UI_Dialogue : MonoBehaviour
 {
     private UI ui;
     
-    [SerializeField] private TextMeshProUGUI speakerName;
+    // [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI[] dialogueChoicesText;
     
@@ -46,7 +46,7 @@ public class UI_Dialogue : MonoBehaviour
 
         HideAllChoices();
         
-        speakerName.text = line.speaker.speakerName;
+        // speakerName.text = line.speaker.speakerName;
 
         fullTextToShow = line.actionType == DialogueActionType.None || line.actionType == DialogueActionType.PlayerMakeChoice ?
             line.GetRandomLine() : line.actionLine;
@@ -129,7 +129,7 @@ public class UI_Dialogue : MonoBehaviour
 
                 dialogueChoicesText[i].gameObject.SetActive(true);
                 dialogueChoicesText[i].text = selectedChoiceIndex == i ?
-                    $"<color=yellow> > {choiceText}" :
+                    $"<color=#E73981> > {choiceText}" :
                     $"> {choiceText}";
             }
             else
