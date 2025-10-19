@@ -45,13 +45,6 @@ public class Pipe : MonoBehaviour
         {
             return;
         }
-        if (PipeType == 7)
-        {
-            emptySprite = currentPipe.GetChild(0).GetComponent<SpriteRenderer>();
-            filledSprite = null;
-            IsFilled = false;   
-            return;
-        }
 
         emptySprite = currentPipe.GetChild(0).GetComponent<SpriteRenderer>();
         emptySprite.gameObject.SetActive(!IsFilled);
@@ -83,8 +76,7 @@ public class Pipe : MonoBehaviour
 
     public void UpdateFilled()
     {
-        if (PipeType == 0 || PipeType == 7) return;
-        if (emptySprite == null || filledSprite == null) return;
+        if (PipeType == 0) return;
         emptySprite.gameObject.SetActive(!IsFilled);
         filledSprite.gameObject.SetActive(IsFilled);
     }

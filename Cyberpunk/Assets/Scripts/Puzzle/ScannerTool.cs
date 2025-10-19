@@ -7,17 +7,12 @@ public class ScannerTool : MonoBehaviour
 {
     public static ScannerTool Instance;
 
-    public RectTransform scannerIcon;
-    public Image scannerImage;               
-    public Sprite normalSprite;               // Puzzle_scene_scanner_2
-    public Sprite successSprite;              // Puzzle_scene_scanner_0
-    public Sprite errorSprite;                // Puzzle_scene_scanner_1
-
+    public RectTransform scannerIcon;   
     public GameObject hintPrefab;       
     public GameObject[] scanPoints;     
     public int brokenPartIndex = 3;     
 
-    public float detectionRadius = 100f;
+    public float detectionRadius = 40f;
     public KeyCode actionKey = KeyCode.F;   
 
     private bool detected = false;     
@@ -28,40 +23,31 @@ public class ScannerTool : MonoBehaviour
     {
         Instance = this;
         originalPos = scannerIcon.anchoredPosition;
-
-        if (scannerImage != null && normalSprite != null)
-            scannerImage.sprite = normalSprite;
-
         if (PipeManager.Instance != null &&
-            PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
+    PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
         {
             SetModeVerification();
         }
+
     }
 
 
 
     public void TryScanAtCursor()
     {
-        //if (detected) return;
-
-        float offset = 100f; 
-        float angleRad = 30f * Mathf.Deg2Rad;
-        Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
-        Vector2 scanTip = scannerIcon.position + (Vector3)tipOffset;
+        if (detected) return;
 
         for (int i = 0; i < scanPoints.Length; i++)
         {
             RectTransform rt = scanPoints[i].GetComponent<RectTransform>();
             Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, rt.position);
-            //float dist = Vector2.Distance(screenPos, Input.mousePosition);
-            float dist = Vector2.Distance(screenPos, scanTip);
+            float dist = Vector2.Distance(screenPos, Input.mousePosition);
 
             if (dist < detectionRadius)
             {
                 if (mode == ScanMode.Diagnosis && i == brokenPartIndex)
                 {
-                    //Debug.Log("Abnormal part detected!");
+                    Debug.Log("Abnormal part detected!");
                     detected = true;
                     //StartCoroutine(ShowError(scanPoints[i]));
                     ShowError(scanPoints[i]);
@@ -72,7 +58,7 @@ public class ScannerTool : MonoBehaviour
 
                 if (mode == ScanMode.Verification)
                 {
-                    //Debug.Log("Repair successful!");
+                    Debug.Log("Repair successful!");
                     detected = true;
                     StartCoroutine(ShowSuccess(scanPoints[i]));
                     break;
@@ -108,10 +94,6 @@ public class ScannerTool : MonoBehaviour
             outline.effectColor = Color.red;
             outline.effectDistance = new Vector2(4, 4);
         }
-
-        if (scannerImage != null && errorSprite != null)
-            scannerImage.sprite = errorSprite;
-
     }
 
     private IEnumerator ShowSuccess(GameObject point)
@@ -132,19 +114,6 @@ public class ScannerTool : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         img.color = baseColor;
-
-        if (scannerImage != null && successSprite != null)
-            scannerImage.sprite = successSprite;
-
-        for (int i = 0; i < 6; i++)
-        {
-            img.color = (i % 2 == 0) ? flashColor : baseColor;
-            yield return new WaitForSeconds(0.2f);
-        }
-        img.color = baseColor;
-
-        if (scannerImage != null && normalSprite != null)
-            scannerImage.sprite = normalSprite;
     }
 
     public enum ScanMode { Diagnosis, Verification }
@@ -165,8 +134,8 @@ public class ScannerTool : MonoBehaviour
     {
         detected = false;
         scannerIcon.anchoredPosition = originalPos;
-        if (scannerImage != null && normalSprite != null)
-            scannerImage.sprite = normalSprite;
     }
+
+
 
 }
