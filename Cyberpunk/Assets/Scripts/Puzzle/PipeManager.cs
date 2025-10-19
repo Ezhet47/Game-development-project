@@ -11,6 +11,8 @@ public class PipeManager : MonoBehaviour
     //public float cellSize = 1f;   
 
 
+
+    //public float cellSize = 1f;
     private bool hasGameFinished;
     private Pipe[,] pipes;
     private List<Pipe> startPipes;
@@ -18,6 +20,9 @@ public class PipeManager : MonoBehaviour
     private bool[,] hasPipe;
 
     public PanelManager panelManager;
+
+    public Animator cyberbodyAnimator;   
+    public float introDuration = 3f;     
 
     private void Awake()
     {
@@ -28,6 +33,14 @@ public class PipeManager : MonoBehaviour
 
     private void SpawnLevel()
     {
+        // Spawn background
+        if (_backgroundPrefab != null)
+        {
+            GameObject bg = Instantiate(_backgroundPrefab);
+            bg.transform.position = new Vector3(_level.Column * 0.5f, _level.Row * 0.5f, _backgroundOffset.z);
+        }
+
+
         pipes = new Pipe[_level.Row, _level.Column];
         startPipes = new List<Pipe>();
         hasPipe = new bool[_level.Row, _level.Column];
@@ -184,7 +197,7 @@ public class PipeManager : MonoBehaviour
 
         EnterVerification();
 
-        // ��ʾ panel_test
+        // ÏÔÊ¾ panel_test
         if (panelManager != null)
         {
             panelManager.ShowPanelTest();
@@ -309,14 +322,56 @@ public class PipeManager : MonoBehaviour
             //Debug.Log("All screws removed. Accessing internal structure...");
             CurrentStage = GameStage.Repair;
 
-            if (panelManager != null)
-            {
-                panelManager.ShowBG();
-            }
-            SpawnLevel();
+            //if (panelManager != null)
+            //{
+            //    panelManager.ShowBG();
+            //}
+            //SpawnLevel();
 
+            StartCoroutine(PlayInternalAnimationThenPuzzle());
         }
     }
+
+    private IEnumerator PlayInternalAnimationThenPuzzle()
+    {
+        if (targetPart != null)
+        {
+            Vector2 startPos = targetPart.anchoredPosition;
+            Vector2 endPos = startPos + new Vector2(0f, -removeDistance);
+            var img = targetPart.GetComponent<UnityEngine.UI.Image>();
+            float t = 0f;
+            Color c0 = img ? img.color : Color.white;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime / removeDuration;
+                targetPart.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+                if (img)
+                {
+                    var c = c0; c.a = Mathf.Lerp(c0.a, 0f, t);
+                    img.color = c;
+                }
+                yield return null;
+            }
+
+            targetPart.gameObject.SetActive(false);
+        }
+
+        if (cyberbodyAnimator != null)
+        {
+            cyberbodyAnimator.Rebind();
+            cyberbodyAnimator.Update(0f);
+            cyberbodyAnimator.Play("roboticArm_0", 0, 0f);
+        }
+
+        yield return new WaitForSeconds(introDuration);
+
+        CurrentStage = GameStage.Repair;
+        panelManager?.ShowBG();
+        SpawnLevel();
+    }
+
+    
 
     private void ClearBoard()
     {

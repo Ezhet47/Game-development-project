@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PanelManager : MonoBehaviour
 {
@@ -75,6 +76,14 @@ public class PanelManager : MonoBehaviour
     {
         GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
-        GameManager.Instance.GoToMainScene();
+        GameManager.Instance.GoToMainSceneBefore();
+    }
+
+    private IEnumerator ReturnToMainAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        //GameManager.Instance.PuzzleCompleted = false;
+        //GameManager.Instance.HasPlayedPuzzle = false;
+        GameManager.Instance.GoToMainSceneBefore();
     }
 }

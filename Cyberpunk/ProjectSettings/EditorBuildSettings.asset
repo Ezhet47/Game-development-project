@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 82a34bb2e1351fa48b7fecc4a5635488
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/MainSceneBefore.unity
     guid: 0c0a853d51024154488bb21a50006c01
   - enabled: 1
     path: Assets/Scenes/Collection.unity
@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PuzzleScene.unity
     guid: f63020d9b148ca247adaceb434b0ce03
+  - enabled: 1
+    path: Assets/Scenes/MainSceneAfter.unity
+    guid: 0ad48b8b86cc7c44e8fe6a222c874819
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
