@@ -6,11 +6,16 @@ public class UI_SceneSwitch : MonoBehaviour
     {
         GameManager.Instance.GoToMainMenu();
     }
-    public void GoToMain()
+    public void GoToMainBefore()
     {
         GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
-        GameManager.Instance.GoToMainScene();
+        GameManager.Instance.GoToMainSceneBefore();
+    }
+    
+    public void GoToMainAfter()
+    {
+        GameManager.Instance.GoToMainSceneAfter();
     }
 
     public void GoToPuzzle()

@@ -35,7 +35,7 @@ public class Teleport : MonoBehaviour
             GameManager.Instance.PuzzleCompleted = false;
             GameManager.Instance.HasPlayedPuzzle = false;
             
-            GameManager.Instance.GoToMainScene();
+            GameManager.Instance.GoToMainSceneBefore();
         }
     }
 }

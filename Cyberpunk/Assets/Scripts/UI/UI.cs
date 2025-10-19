@@ -68,12 +68,12 @@ public class UI : MonoBehaviour
     {
         GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
-        GameManager.Instance.GoToMainScene();
+        GameManager.Instance.GoToMainSceneBefore();
     }
 
     public void ReturnToPanel()
     {
-        GameManager.Instance.GoToMainScene();
+        GameManager.Instance.GoToMainSceneBefore();
     }
 
     public void GoToPuzzle()
