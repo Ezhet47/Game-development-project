@@ -230,6 +230,8 @@ public class PipeManager : MonoBehaviour
         //externalPipe.transform.localScale = Vector3.one * cellSize;
 
         externalPipe.IsDraggable = true;
+
+        externalPipe.gameObject.tag = "ExternalPipe";
     }
 
     public bool IsInsideBoard(int row, int col)
@@ -247,6 +249,9 @@ public class PipeManager : MonoBehaviour
     public void PlacePipeAt(Pipe dragged, int row, int col)
     {
         if (!IsInsideBoard(row, col))
+            return;
+        if (dragged.gameObject.CompareTag("ExternalPipe") &&
+        !(row == _level.Row - 1 && col == 3))
             return;
 
         dragged.transform.position = GetCellCenter(row, col);

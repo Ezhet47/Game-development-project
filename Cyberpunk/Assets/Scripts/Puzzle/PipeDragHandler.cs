@@ -11,6 +11,8 @@ public class PipeDragHandler : MonoBehaviour
     private bool startedFromBoard = false;
     private bool clearedFromBoard = false;
 
+    private Vector3 externalStartPos;
+
     private void Awake()
     {
         pipe = GetComponent<Pipe>();
@@ -67,6 +69,9 @@ public class PipeDragHandler : MonoBehaviour
                 isDragging = true;
                 offset = transform.position - mouseWorld;
 
+                if (gameObject.CompareTag("ExternalPipe"))
+                    externalStartPos = transform.position;
+
                 PipeManager.Instance.WorldToCell(startPosition, out int row, out int col);
                 startedFromBoard = PipeManager.Instance.IsInsideBoard(row, col);
                 clearedFromBoard = false;
@@ -90,12 +95,12 @@ public class PipeDragHandler : MonoBehaviour
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = mouseWorld + offset;
 
-            PipeManager.Instance.WorldToCell(mouseWorld, out int row, out int col);
-            if (PipeManager.Instance.IsInsideBoard(row, col))
-            {
-                if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
-                    _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
-            }
+            //PipeManager.Instance.WorldToCell(mouseWorld, out int row, out int col);
+            //if (PipeManager.Instance.IsInsideBoard(row, col))
+            //{
+            //    if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
+            //        _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
+            //}
         }
 
 
@@ -104,24 +109,39 @@ public class PipeDragHandler : MonoBehaviour
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             PipeManager.Instance.WorldToCell(mouseWorld, out int row, out int col);
 
-            if (PipeManager.Instance.IsInsideBoard(row, col) &&
-                PipeManager.Instance.IsEmptyAt(row, col))
+            bool isExternal = gameObject.CompareTag("ExternalPipe");
+            bool validCell = PipeManager.Instance.IsInsideBoard(row, col) &&
+                             PipeManager.Instance.IsEmptyAt(row, col) &&
+                             row == PipeManager.Instance.Level.Row - 1 &&
+                             col == 3;
+
+            if (isExternal)
             {
-
-                PipeManager.Instance.PlacePipeAt(pipe, row, col);
-
-                if (PipeManager.Instance != null)
+                if (validCell)
+                {
+                    PipeManager.Instance.PlacePipeAt(pipe, row, col);
                     PipeManager.Instance.PlayPipePlaceSound();
-
-                Transform background = transform;
-                SpriteRenderer sr = background.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.enabled = true;
-
-                if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
-                    _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
+                    pipe.IsDraggable = false;
+                    if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
+                        _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
+                }
+                else
+                {
+                    transform.position = externalStartPos;
+                }
             }
-        
+            else
+            {
+                if (PipeManager.Instance.IsInsideBoard(row, col) &&
+                    PipeManager.Instance.IsEmptyAt(row, col))
+                {
+                    PipeManager.Instance.PlacePipeAt(pipe, row, col);
+                    PipeManager.Instance.PlayPipePlaceSound();
+                }
+                else
+                {
+                }
+            }
 
             isDragging = false;
         }
