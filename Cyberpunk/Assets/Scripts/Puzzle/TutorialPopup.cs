@@ -5,8 +5,11 @@ using System.Collections;
 public class TutorialPopup : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    public float displayTime = 5f; // 显示秒数
+    public float displayTime = 5f;
     public CanvasGroup canvasGroup;
+
+    private Coroutine currentRoutine;
+    private bool isShowing = false;
 
     void Awake()
     {
@@ -20,22 +23,41 @@ public class TutorialPopup : MonoBehaviour
         StopAllCoroutines();
         text.text = msg;
         gameObject.SetActive(true);
-        canvasGroup.alpha = 1;
-        StartCoroutine(HideAfterDelay());
+        currentRoutine = StartCoroutine(ShowAndHide());
     }
 
-    private IEnumerator HideAfterDelay()
+    private IEnumerator ShowAndHide()
     {
-        yield return new WaitForSeconds(displayTime);
+        isShowing = true;
 
-        // 淡出效果
         float t = 0f;
-        while (t < 1f)
+        while (t < 0.3f)
         {
             t += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t / 0.3f);
             yield return null;
         }
+        canvasGroup.alpha = 1f;
+
+        float timer = 0f;
+        while (timer < displayTime && isShowing)
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                break; 
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        t = 0f;
+        while (t < 0.3f)
+        {
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t / 0.3f);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0f;
         gameObject.SetActive(false);
+        isShowing = false;
     }
 }

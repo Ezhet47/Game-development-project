@@ -8,6 +8,10 @@ public class PanelManager : MonoBehaviour
     public GameObject panel;       
     public GameObject panelTest;
 
+    [SerializeField] private GameObject tutorialImage;
+    [SerializeField] private float tutorialDuration = 5f;
+    private bool tutorialShown = false;
+
     private void Awake()
     {
         SetAllInactive();           
@@ -54,6 +58,15 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(false);
         //Debug.Log("Display Locked Puzzle BG");
+        var popup = FindFirstObjectByType<TutorialPopup>();
+        if (popup != null)
+        {
+            //Debug.Log("Popup triggered");
+            popup.Show(
+                "Not yet collected.\n" +
+                "Please collect the repair items first."
+            );
+        }
     }
 
     public void ShowBG()
@@ -63,6 +76,11 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(false);
         //Debug.Log("Display BG");
+        if (!tutorialShown && tutorialImage != null)
+        {
+            tutorialShown = true;
+            StartCoroutine(ShowTutorial());
+        }
     }
 
     public void ShowPanel()
@@ -75,7 +93,7 @@ public class PanelManager : MonoBehaviour
         var popup = FindFirstObjectByType<TutorialPopup>();
         if (popup != null)
         {
-            Debug.Log("Popup triggered");
+            //Debug.Log("Popup triggered");
             popup.Show(
                 "Right-click and drag the scanner.\n" +
                 "Scan the cyber arm to locate the faulty part.\n" +
@@ -108,4 +126,45 @@ public class PanelManager : MonoBehaviour
         //GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneAfter();
     }
+
+    private IEnumerator ShowTutorial()
+    {
+        tutorialImage.SetActive(true);
+
+        CanvasGroup cg = tutorialImage.GetComponent<CanvasGroup>();
+        if (cg == null)
+            cg = tutorialImage.AddComponent<CanvasGroup>();
+        cg.alpha = 0f;
+
+        float t = 0f;
+        while (t < 0.5f)
+        {
+            t += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(0f, 1f, t / 0.5f);
+            yield return null;
+        }
+        cg.alpha = 1f;
+
+        float timer = 0f;
+        while (timer < tutorialDuration)
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                break;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        t = 0f;
+        while (t < 0.5f)
+        {
+            t += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(1f, 0f, t / 0.5f);
+            yield return null;
+        }
+        cg.alpha = 0f;
+
+        tutorialImage.SetActive(false);
+    }
+
+
 }
