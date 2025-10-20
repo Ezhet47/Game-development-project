@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: b1247c812322946468429c56fdfdffe9
+guid: 747e1ef0abf016c4a8d095e6058283f5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2446216351757900380
-    second: Font_Grid_0
+      213: -4992500446884932343
+    second: dialogue3_0
+  - first:
+      213: -154582587257016589
+    second: dialogue3_1
+  - first:
+      213: 4260829226617426442
+    second: dialogue3_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Font_Grid_0
+      name: dialogue3_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 100
-        height: 153
+        width: 1504
+        height: 349
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a5e7bd403b4d0ed0800000000000000
-      internalID: -2446216351757900380
+      spriteID: 905d1728b4317bab0800000000000000
+      internalID: -4992500446884932343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue3_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3
+        width: 1502
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fea516b4ffcaddf0800000000000000
+      internalID: -154582587257016589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue3_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 22
+        width: 1460
+        height: 307
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0252255b91812b30800000000000000
+      internalID: 4260829226617426442
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9211335f9fdb4fd42a1e304022a5cc80
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Font_Grid_0: -2446216351757900380
+      dialogue3_0: -4992500446884932343
+      dialogue3_1: -154582587257016589
+      dialogue3_2: 4260829226617426442
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6675955456251934c8f6af39024a1c49
+guid: 0b0ce86b310b3bd449ebb2b6b22ff32a
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Doomed
+  - Minecraft
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: f403d5f7988f954409b27af861b7e613
+guid: 16fae9c0f62b6164fb64ee9e4feba848
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 791336545582589345
-    second: dialogue_0
+      213: 285694945501975970
+    second: Done_0
   - first:
-      213: -6875433093473928017
-    second: dialogue_1
+      213: 6578138441309508081
+    second: Done_1
   - first:
-      213: -3401809131681094416
-    second: dialogue_2
+      213: -3949080435664722989
+    second: Done_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,67 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogue_0
+      name: Done_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 104
-        width: 1502
-        height: 245
+        x: 0
+        y: 0
+        width: 165
+        height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a52c3145646bfa00800000000000000
-      internalID: 791336545582589345
+      spriteID: 2a515cc0a0ef6f300800000000000000
+      internalID: 285694945501975970
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dialogue_1
+      name: Done_1
       rect:
         serializedVersion: 2
-        x: 4
-        y: 3
-        width: 1502
-        height: 157
+        x: 20
+        y: 12
+        width: 124
+        height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fac7582770e8590a0800000000000000
-      internalID: -6875433093473928017
+      spriteID: 1f158955f0e3a4b50800000000000000
+      internalID: 6578138441309508081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dialogue_2
+      name: Done_2
       rect:
         serializedVersion: 2
-        x: 26
-        y: 22
-        width: 1460
-        height: 307
+        x: 124
+        y: 0
+        width: 41
+        height: 55
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0f4e7784e985ac0d0800000000000000
-      internalID: -3401809131681094416
+      spriteID: 3d362c2544c0239c0800000000000000
+      internalID: -3949080435664722989
       vertices: []
       indices: 
       edges: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: f71acb75880ef0f40b1609ca0a036417
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogue_0: 791336545582589345
-      dialogue_1: -6875433093473928017
-      dialogue_2: -3401809131681094416
+      Done_0: 285694945501975970
+      Done_1: 6578138441309508081
+      Done_2: -3949080435664722989
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
