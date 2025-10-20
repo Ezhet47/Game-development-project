@@ -6,7 +6,17 @@ public class Screw : MonoBehaviour
     private bool removed = false;
     private float rotationSpeed = 400f; 
     //private float currentAngle = 0f;
-    private float descendDuration = 0.5f; 
+    private float descendDuration = 0.5f;
+
+    [SerializeField] private AudioClip[] unscrewSounds;
+    private AudioSource audioSource;
+    private int screwIndex = 0;
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
 
     public void StartUnscrew()
     {
@@ -19,6 +29,11 @@ public class Screw : MonoBehaviour
     {
         removed = true;
         //Debug.Log($"{name} Starts being removed");
+        if (unscrewSounds != null && unscrewSounds.Length > 0)
+        {
+            int index = Mathf.Clamp(screwIndex, 0, unscrewSounds.Length - 1);
+            audioSource.PlayOneShot(unscrewSounds[index]);
+        }
 
         float duration = 0.5f;
         float elapsed = 0f;
@@ -46,5 +61,10 @@ public class Screw : MonoBehaviour
         gameObject.SetActive(false);
 
         PipeManager.Instance.OnScrewRemoved();
+    }
+
+    public void SetScrewIndex(int index)
+    {
+        screwIndex = index;
     }
 }
