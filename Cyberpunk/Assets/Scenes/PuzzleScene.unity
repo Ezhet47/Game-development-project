@@ -759,6 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds: []
 --- !u!222 &252041301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -847,6 +848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds:
+  - {fileID: 8300000, guid: 04d412139a9cf7c48bd2e2173a1f2b6f, type: 3}
 --- !u!222 &338413648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -935,6 +938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds:
+  - {fileID: 8300000, guid: 4a4353fea4f0b504a8c2f6291ba5ba55, type: 3}
 --- !u!222 &422070933
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1447,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds: []
 --- !u!222 &641546214
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2184,6 +2190,9 @@ MonoBehaviour:
   targetPart: {fileID: 49552736}
   removeDistance: 150
   removeDuration: 0.8
+  placeSound: {fileID: 8300000, guid: 448e6f951bb21864daef91aa8407e555, type: 3}
+  successSound: {fileID: 8300000, guid: 5adf6748012870f47affdb12cbdac523, type: 3}
+  rotateSound: {fileID: 8300000, guid: 4c9681b6deb070d45953dce18da0eaeb, type: 3}
   panelManager: {fileID: 1393449377}
   cyberbodyAnimator: {fileID: 1482630786}
   introDuration: 2
@@ -2483,6 +2492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds: []
 --- !u!222 &1127765296
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2646,6 +2656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds: []
 --- !u!222 &1187005433
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2734,6 +2745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds: []
 --- !u!222 &1232437943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2888,8 +2900,10 @@ MonoBehaviour:
   - {fileID: 631531928}
   - {fileID: 49552735}
   brokenPartIndex: 3
-  detectionRadius: 40
+  detectionRadius: 60
   actionKey: 102
+  successSound: {fileID: 8300000, guid: f972a0a6b9d04f648bee8bf4ba6527b5, type: 3}
+  errorSound: {fileID: 8300000, guid: ebcfd9602b4f6be4e898a1ea1f0d1ae5, type: 3}
   mode: 0
 --- !u!1 &1307748198
 GameObject:
@@ -2971,6 +2985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds:
+  - {fileID: 8300000, guid: b2d863b2f7d0094458dd2ff786d4e09c, type: 3}
 --- !u!222 &1307748202
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3874,6 +3890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds:
+  - {fileID: 8300000, guid: 66002954f9214da4f8538e7f8624bc2b, type: 3}
 --- !u!222 &1552328514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4281,6 +4299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6991649084b694599d227e13f08cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonClickSound: {fileID: 8300000, guid: 18043cb1a89560645875af370fd8040b, type: 3}
 --- !u!114 &1676752808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5220,6 +5239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b8f4fe24817e4db8ca980f8859d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscrewSounds:
+  - {fileID: 8300000, guid: a997d9d1af4de3049ae610820d44afca, type: 3}
 --- !u!222 &1977195827
 CanvasRenderer:
   m_ObjectHideFlags: 0

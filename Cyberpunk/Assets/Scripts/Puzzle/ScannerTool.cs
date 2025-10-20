@@ -24,10 +24,19 @@ public class ScannerTool : MonoBehaviour
 
     private Vector2 originalPos;
 
+    //[SerializeField] private AudioClip scanSound; 
+    [SerializeField] private AudioClip successSound;
+    [SerializeField] private AudioClip errorSound;
+    private AudioSource audioSource;
+    private bool hasPlayedSound = false;
+
     private void Awake()
     {
         Instance = this;
         originalPos = scannerIcon.anchoredPosition;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
 
         if (scannerImage != null && normalSprite != null)
             scannerImage.sprite = normalSprite;
@@ -39,8 +48,6 @@ public class ScannerTool : MonoBehaviour
         }
     }
 
-
-
     public void TryScanAtCursor()
     {
         //if (detected) return;
@@ -49,6 +56,9 @@ public class ScannerTool : MonoBehaviour
         float angleRad = 30f * Mathf.Deg2Rad;
         Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
         Vector2 scanTip = scannerIcon.position + (Vector3)tipOffset;
+
+        //if (scanSound != null)
+        //    audioSource.PlayOneShot(scanSound);
 
         if (PipeManager.Instance != null && PipeManager.Instance.CurrentStage == PipeManager.GameStage.Verification)
         {
@@ -101,8 +111,6 @@ public class ScannerTool : MonoBehaviour
         }
     }
 
-
-
     private void ShowError(GameObject point)
     {
         //GameObject hint = Instantiate(hintPrefab, point.transform.parent);
@@ -123,6 +131,11 @@ public class ScannerTool : MonoBehaviour
         if (scannerImage != null && errorSprite != null)
             scannerImage.sprite = errorSprite;
 
+        if (!hasPlayedSound && errorSound != null)
+        {
+            audioSource.PlayOneShot(errorSound);
+            hasPlayedSound = true;
+        }
     }
 
     private IEnumerator ShowSuccess(GameObject point)
@@ -140,6 +153,12 @@ public class ScannerTool : MonoBehaviour
 
         if (scannerImage != null && successSprite != null)
             scannerImage.sprite = successSprite;
+
+        if (!hasPlayedSound && successSound != null)
+        {
+            audioSource.PlayOneShot(successSound);
+            hasPlayedSound = true;
+        }
 
         yield return null;
     }
@@ -161,9 +180,9 @@ public class ScannerTool : MonoBehaviour
     public void ResetScanner()
     {
         detected = false;
+        hasPlayedSound = false;
         scannerIcon.anchoredPosition = originalPos;
         if (scannerImage != null && normalSprite != null)
             scannerImage.sprite = normalSprite;
     }
-
 }

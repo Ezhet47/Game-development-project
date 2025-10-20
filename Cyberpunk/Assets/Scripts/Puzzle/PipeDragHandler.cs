@@ -29,6 +29,8 @@ public class PipeDragHandler : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     pipe.UpdateInput();
+                    if (PipeManager.Instance != null)
+                        PipeManager.Instance.PlayRotateSound();
                     if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
                         _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
                 }
@@ -45,6 +47,8 @@ public class PipeDragHandler : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 pipe.UpdateInput();
+                if (PipeManager.Instance != null)
+                    PipeManager.Instance.PlayRotateSound();
                 if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
                     _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
             }
@@ -105,6 +109,9 @@ public class PipeDragHandler : MonoBehaviour
             {
 
                 PipeManager.Instance.PlacePipeAt(pipe, row, col);
+
+                if (PipeManager.Instance != null)
+                    PipeManager.Instance.PlayPipePlaceSound();
 
                 Transform background = transform;
                 SpriteRenderer sr = background.GetComponent<SpriteRenderer>();

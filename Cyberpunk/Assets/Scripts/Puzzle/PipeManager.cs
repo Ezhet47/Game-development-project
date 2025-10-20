@@ -14,7 +14,10 @@ public class PipeManager : MonoBehaviour
     [SerializeField] private float removeDistance = 150f;
     [SerializeField] private float removeDuration = 0.8f;
 
-
+    [SerializeField] private AudioClip placeSound;    
+    [SerializeField] private AudioClip successSound;  
+    [SerializeField] private AudioClip rotateSound;   
+    private AudioSource audioSource;
 
     //public float cellSize = 1f;
     private bool hasGameFinished;
@@ -32,7 +35,8 @@ public class PipeManager : MonoBehaviour
     {
         Instance = this;
         hasGameFinished = false;
-
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     private void SpawnLevel()
@@ -43,7 +47,6 @@ public class PipeManager : MonoBehaviour
             GameObject bg = Instantiate(_backgroundPrefab);
             bg.transform.position = new Vector3(_level.Column * 0.5f, _level.Row * 0.5f, _backgroundOffset.z);
         }
-
 
         pipes = new Pipe[_level.Row, _level.Column];
         startPipes = new List<Pipe>();
@@ -88,7 +91,6 @@ public class PipeManager : MonoBehaviour
 
         Camera.main.transform.position = cameraPos;
 
-
         StartCoroutine(ShowHint());
 
         for (int i = 0; i < _level.Row; i++)
@@ -99,7 +101,6 @@ public class PipeManager : MonoBehaviour
                 if (tempPipe != null) tempPipe.RefreshInput();
             }
         }
-
         CheckFill();
         CheckWin();
     }
@@ -107,7 +108,6 @@ public class PipeManager : MonoBehaviour
     private void Update()
     {
         if (hasGameFinished) return;
-
     }
 
     public IEnumerator ShowHintWrapper()
@@ -172,7 +172,6 @@ public class PipeManager : MonoBehaviour
                 if (tempPipe != null) tempPipe.UpdateFilled();
             }
         }
-
     }
 
     private void CheckWin()
@@ -197,16 +196,17 @@ public class PipeManager : MonoBehaviour
         //Debug.Log("Repair complete. Entering verification phase.");
         GameManager.Instance.PuzzleCompleted = true;
 
+        if (successSound != null)
+            audioSource.PlayOneShot(successSound);
+
         ClearBoard();
 
         EnterVerification();
 
-        // ÏÔÊ¾ panel_test
         if (panelManager != null)
         {
             panelManager.ShowPanelTest();
         }
-
     }
 
     public Pipe externalPipePrefab;  
@@ -422,5 +422,15 @@ public class PipeManager : MonoBehaviour
         //Debug.Log("Board cleared");
     }
 
+    public void PlayPipePlaceSound()
+    {
+        if (placeSound != null)
+            audioSource.PlayOneShot(placeSound);
+    }
 
+    public void PlayRotateSound()
+    {
+        if (rotateSound != null)
+            audioSource.PlayOneShot(rotateSound);
+    }
 }
