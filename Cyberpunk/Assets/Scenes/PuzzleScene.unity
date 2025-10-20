@@ -5632,7 +5632,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1676752807}
         m_TargetAssemblyTypeName: UI_SceneSwitch, Assembly-CSharp
-        m_MethodName: GoToMainBefore
+        m_MethodName: GoToMainAfter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

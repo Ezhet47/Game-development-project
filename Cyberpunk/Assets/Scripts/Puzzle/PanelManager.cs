@@ -86,6 +86,6 @@ public class PanelManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         //GameManager.Instance.PuzzleCompleted = false;
         //GameManager.Instance.HasPlayedPuzzle = false;
-        GameManager.Instance.GoToMainSceneBefore();
+        GameManager.Instance.GoToMainSceneAfter();
     }
 }
