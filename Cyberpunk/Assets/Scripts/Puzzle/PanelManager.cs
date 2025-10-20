@@ -72,6 +72,17 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(true);
         panelTest.SetActive(false);
         //Debug.Log("Display Panel (Diagnosis)");
+        var popup = FindFirstObjectByType<TutorialPopup>();
+        if (popup != null)
+        {
+            Debug.Log("Popup triggered");
+            popup.Show(
+                "Right-click and drag the scanner.\n" +
+                "Scan the cyber arm to locate the faulty part.\n" +
+                "Right-click and drag the screwdriver.\n" +
+                "Align its tip with a screw to remove it."
+            );
+        }
     }
 
     public void ShowPanelTest()
