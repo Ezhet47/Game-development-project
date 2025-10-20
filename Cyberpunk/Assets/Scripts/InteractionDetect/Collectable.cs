@@ -11,6 +11,10 @@ public class Collectable : MonoBehaviour
 
     private Player cachedPlayer;
 
+    [Header("Collectable Sounds")]
+    public AudioSource audioSource;      
+    public AudioClip[] collectClips;
+    public AudioClip fail;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -47,31 +51,51 @@ public class Collectable : MonoBehaviour
             // 启动QTE
             UI_QTE.Instance.StartSkillCheck(
                 focus,
-                success: () =>
-                {
-                    // 恢复移动
-                    if (cachedPlayer) cachedPlayer.canMove = true;
+success: () =>
+{
+    // 恢复移动
+    if (cachedPlayer) cachedPlayer.canMove = true;
 
-                    // 可选：加分（你的工程里是 ComponentCount.instance）
-                    if (ComponentCount.instance != null && score != 0)
-                    {
-                        ComponentCount.instance.totalComponents += score;
-                        ComponentCount.instance.UpdateTotalScore();
-                        
-                    }
-                    GameManager.Instance.HasCollected = true;
+    // 可选：加分
+    if (ComponentCount.instance != null && score != 0)
+    {
+        ComponentCount.instance.totalComponents += score;
+        ComponentCount.instance.UpdateTotalScore();
+    }
 
-                    // 成功：销毁
-                    Destroy(gameObject);
-                },
+    GameManager.Instance.HasCollected = true;
+
+    // ? 播放随机音效
+    PlayRandomCollectSound();
+
+    // 成功：销毁
+    Destroy(gameObject);
+},
                 fail: () =>
                 {
                     // 失败：恢复可重试
                     if (cachedPlayer) cachedPlayer.canMove = true;
                     collide = true;
                     if (otherScript) otherScript.canpress = true;
+                    PlayFailSound();
                 }
+                
             );
         }
     }
+    private void PlayRandomCollectSound()
+    {
+        if (audioSource == null || collectClips == null || collectClips.Length == 0) return;
+
+        int index = Random.Range(0, collectClips.Length);
+        float volume = Random.Range(0.9f, 1.0f); 
+        audioSource.PlayOneShot(collectClips[index], volume);
+        
+    }
+    private void PlayFailSound()
+    {
+        if (audioSource == null || fail == null) return;
+        audioSource.PlayOneShot(fail, 1f);
+    }
+
 }

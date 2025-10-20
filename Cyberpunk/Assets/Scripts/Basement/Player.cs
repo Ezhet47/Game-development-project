@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform primaryWallCheck;
     [SerializeField] private Transform secondaryWallCheck;
+
+    [Header("Footstep Audio")]
+    public AudioSource audioSource;          
+    public AudioClip[] footstepClips;         
+    [SerializeField] private float footstepInterval = 0.4f;
+    private float footstepTimer;
     public bool groundDetected { get; private set; }
     public bool wallDetected { get; private set; }
 
@@ -66,11 +72,28 @@ public class Player : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             return;
         }
-
+        if (groundDetected && moveInput.magnitude > 0.1f)
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                PlayFootstep();
+                footstepTimer = footstepInterval;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; 
+        }
         HandleCollisionDetection();
         stateMachine.UpdateActiveState();
     }
-
+    private void PlayFootstep()
+    {
+        if (footstepClips.Length == 0 || audioSource == null) return;
+        int index = Random.Range(0, footstepClips.Length);
+        audioSource.PlayOneShot(footstepClips[index]);
+    }
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         rb.linearVelocity = new Vector2(xVelocity, yVelocity);
