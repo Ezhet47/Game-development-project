@@ -40,33 +40,13 @@ public class UI : MonoBehaviour
     {
         if (bg == null || chipPanel == null || victoryPanel == null) return;
         
-        if (GameManager.Instance.PuzzleCompleted)
-        {
-            bg.SetActive(false);
-            chipPanel.SetActive(false);
-            victoryPanel.SetActive(true);
-
-            GameManager.Instance.PuzzleCompleted = false;
-        }
-        else if (GameManager.Instance.HasPlayedPuzzle)
-        {
-            bg.SetActive(false);
-            chipPanel.SetActive(true);
-            victoryPanel.SetActive(false);
-        }
-        else
-        {
-            bg.SetActive(true);
-            chipPanel.SetActive(false);
-            victoryPanel.SetActive(false);
-        }
+        
 
         GameManager.Instance.HasPlayedPuzzle = true;
     }
     
     public void GoToMain()
     {
-        GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneBefore();
     }

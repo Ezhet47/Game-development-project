@@ -2183,7 +2183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25e68dbf9b5073449f61ee970649dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 11400000, guid: 6f765c48228fa2a4dba99ea113f13ab5, type: 2}
   _cellPrefab: {fileID: 4239531864312448612, guid: 6a1f434cf8f66e941af7d613a739d965, type: 3}
   _backgroundPrefab: {fileID: 6789158654657178219, guid: 628dc219fe1310a4f81784809a281a79, type: 3}
   _backgroundOffset: {x: 0, y: 0, z: 5}
@@ -2193,6 +2192,9 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: 448e6f951bb21864daef91aa8407e555, type: 3}
   successSound: {fileID: 8300000, guid: 5adf6748012870f47affdb12cbdac523, type: 3}
   rotateSound: {fileID: 8300000, guid: 4c9681b6deb070d45953dce18da0eaeb, type: 3}
+  levels:
+  - {fileID: 11400000, guid: 6f765c48228fa2a4dba99ea113f13ab5, type: 2}
+  - {fileID: 11400000, guid: 4816c2ed08a4f304e9a1de96cfe0ae9c, type: 2}
   panelManager: {fileID: 1393449377}
   cyberbodyAnimator: {fileID: 1482630786}
   introDuration: 2

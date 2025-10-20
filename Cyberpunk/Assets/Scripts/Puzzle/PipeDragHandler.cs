@@ -110,10 +110,19 @@ public class PipeDragHandler : MonoBehaviour
             PipeManager.Instance.WorldToCell(mouseWorld, out int row, out int col);
 
             bool isExternal = gameObject.CompareTag("ExternalPipe");
+            //bool validCell = PipeManager.Instance.IsInsideBoard(row, col) &&
+            //                 PipeManager.Instance.IsEmptyAt(row, col) &&
+            //                 row == PipeManager.Instance.Level.Row - 1 &&
+            //                 col == 3;
+            int targetRow = PipeManager.Instance.Level.Row - 1;
+            if (PipeManager.Instance.CurrentLevelIndex == 1)
+                targetRow = PipeManager.Instance.Level.Row - 4;
+
             bool validCell = PipeManager.Instance.IsInsideBoard(row, col) &&
                              PipeManager.Instance.IsEmptyAt(row, col) &&
-                             row == PipeManager.Instance.Level.Row - 1 &&
+                             row == targetRow &&
                              col == 3;
+
 
             if (isExternal)
             {

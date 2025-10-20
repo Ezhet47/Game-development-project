@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,14 +32,17 @@ public class GameManager : MonoBehaviour
     private const string PuzzleScene = "PuzzleScene";
     private const string Collection = "Collection";
 
-    public bool PuzzleCompleted = false;
     public bool HasPlayedPuzzle = false;
     public bool HasCollected = false;
+    public bool[] LevelCompleted = new bool[2];
 
     public void GoToMainMenu()   => StartCoroutine(LoadSceneWithFade(MainMenu));
     public void GoToMainSceneBefore()   => StartCoroutine(LoadSceneWithFade(MainSceneBefore));
     public void GoToMainSceneAfter()    => StartCoroutine(LoadSceneWithFade(MainSceneAfter));
-    public void GoToPuzzleScene() => StartCoroutine(LoadSceneWithFade(PuzzleScene));
+    public void GoToPuzzleScene()
+    {
+        StartCoroutine(LoadSceneWithFade(PuzzleScene));
+    }
     public void GoToCollection()  => StartCoroutine(LoadSceneWithFade(Collection));
 
     private UI_FadeScreen FindFadeScreenUI()

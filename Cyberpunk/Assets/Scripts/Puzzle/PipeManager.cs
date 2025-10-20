@@ -6,7 +6,7 @@ public class PipeManager : MonoBehaviour
 {
     public static PipeManager Instance;
 
-    [SerializeField] private LevelData _level;
+    //[SerializeField] private LevelData _level;
     [SerializeField] private GameObject _cellPrefab;
     [SerializeField] private GameObject _backgroundPrefab;
     [SerializeField] private Vector3 _backgroundOffset = new Vector3(0, 0, 5);
@@ -18,6 +18,13 @@ public class PipeManager : MonoBehaviour
     [SerializeField] private AudioClip successSound;  
     [SerializeField] private AudioClip rotateSound;   
     private AudioSource audioSource;
+
+    [SerializeField] private List<LevelData> levels;  
+    private LevelData _level;                       
+    private int currentLevelIndex = 0;
+    private List<bool> levelCompleted;
+    public int CurrentLevelIndex => currentLevelIndex;
+
 
     //public float cellSize = 1f;
     private bool hasGameFinished;
@@ -37,7 +44,27 @@ public class PipeManager : MonoBehaviour
         hasGameFinished = false;
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
+
+        if (levels != null && levels.Count > 0)
+        {
+            currentLevelIndex = 0;
+            _level = levels[currentLevelIndex];
+        }
     }
+    private void Start()
+    {
+        //levelCompleted = new List<bool>();
+        //for (int i = 0; i < levels.Count; i++)
+        //    levelCompleted.Add(false);
+        levelCompleted = new List<bool>(GameManager.Instance.LevelCompleted);
+
+        currentLevelIndex = 0;
+        hasGameFinished = false;
+        _level = levels[currentLevelIndex];
+
+        //Debug.Log($"[PipeManager] Start(): 初始化 levelCompleted → [{string.Join(",", levelCompleted)}]");
+    }
+
 
     private void SpawnLevel()
     {
@@ -66,11 +93,27 @@ public class PipeManager : MonoBehaviour
                 pipes[i, j] = tempPipe;
                 hasPipe[i, j] = true;
 
-                // Only row=0, col=3 can drag
-                if (i == _level.Row - 1 && j == 3)
-                    tempPipe.IsDraggable = true;
+                //// Only row=0, col=3 can drag
+                //if (i == _level.Row - 1 && j == 3)
+                //    tempPipe.IsDraggable = true;
+                //else
+                //    tempPipe.IsDraggable = false;
+
+                if (currentLevelIndex == 0)
+                {
+                    // 第一关：最后一行，第4列
+                    tempPipe.IsDraggable = (i == _level.Row - 1 && j == 3);
+                }
+                else if (currentLevelIndex == 1)
+                {
+                    // 第二关：第4行，第4列（索引从0开始 → 第4行是 i==3）
+                    tempPipe.IsDraggable = (i == _level.Row - 4 && j == 3);
+                }
                 else
+                {
+                    // 其他关卡默认都不能拖
                     tempPipe.IsDraggable = false;
+                }
 
                 if (tempPipe.PipeType == 1)
                 {
@@ -101,8 +144,10 @@ public class PipeManager : MonoBehaviour
                 if (tempPipe != null) tempPipe.RefreshInput();
             }
         }
-        CheckFill();
-        CheckWin();
+        //CheckFill();
+        //CheckWin();
+        StartCoroutine(DelayCheck());
+
     }
 
     private void Update()
@@ -176,6 +221,7 @@ public class PipeManager : MonoBehaviour
 
     private void CheckWin()
     {
+        if (hasGameFinished) return;
         for (int i = 0; i < _level.Row; i++)
         {
             for (int j = 0; j < _level.Column; j++)
@@ -192,20 +238,43 @@ public class PipeManager : MonoBehaviour
 
     private IEnumerator GameFinished()
     {
-        yield return new WaitForSeconds(1.5f);
+        //Debug.Log($"[PipeManager] GameFinished() at Level {currentLevelIndex}");
+        yield return new WaitForSeconds(0.5f);
         //Debug.Log("Repair complete. Entering verification phase.");
-        GameManager.Instance.PuzzleCompleted = true;
 
         if (successSound != null)
             audioSource.PlayOneShot(successSound);
 
-        ClearBoard();
+        levelCompleted[currentLevelIndex] = true;
+        GameManager.Instance.LevelCompleted[currentLevelIndex] = true;
+        //Debug.Log($"[PipeManager] Level {currentLevelIndex} 完成 → [{string.Join(",", levelCompleted)}]");
+        hasGameFinished = true;
 
-        EnterVerification();
-
-        if (panelManager != null)
+        if (levels != null && currentLevelIndex + 1 < levels.Count)
         {
-            panelManager.ShowPanelTest();
+            ClearBoard();
+            currentLevelIndex++;
+            _level = levels[currentLevelIndex];
+
+            if (currentLevelIndex < levelCompleted.Count)
+                levelCompleted[currentLevelIndex] = false;
+
+            //yield return new WaitForSeconds(0.3f);
+            hasGameFinished = false;
+            SpawnLevel();
+        }
+        else
+        {
+            bool level1Done = IsLevel1Completed();
+            bool level2Done = IsLevel2Completed();
+
+            if (level1Done && level2Done)
+            {
+                ClearBoard();
+                EnterVerification();
+                if (panelManager != null)
+                    panelManager.UpdateSceneState();
+            }
         }
     }
 
@@ -250,9 +319,19 @@ public class PipeManager : MonoBehaviour
     {
         if (!IsInsideBoard(row, col))
             return;
-        if (dragged.gameObject.CompareTag("ExternalPipe") &&
-        !(row == _level.Row - 1 && col == 3))
-            return;
+        if (dragged.gameObject.CompareTag("ExternalPipe"))
+        {
+            bool canPlace = false;
+
+            if (currentLevelIndex == 0)
+                canPlace = (row == _level.Row - 1 && col == 3);
+            else if (currentLevelIndex == 1)
+                canPlace = (row == _level.Row - 4 && col == 3);
+
+            if (!canPlace)
+                return;
+        }
+
 
         dragged.transform.position = GetCellCenter(row, col);
 
@@ -322,7 +401,7 @@ public class PipeManager : MonoBehaviour
     public void OnScrewRemoved()
     {
         removedCount++;
-        Debug.Log($"Screws removed: {removedCount}/{totalScrews}");
+        //Debug.Log($"Screws removed: {removedCount}/{totalScrews}");
 
   
 
@@ -377,6 +456,12 @@ public class PipeManager : MonoBehaviour
 
         CurrentStage = GameStage.Repair;
         panelManager?.ShowBG();
+        if (levels != null && levels.Count > 0)
+        {
+            _level = levels[currentLevelIndex];
+        }
+        GameManager.Instance.HasPlayedPuzzle = true;
+
         SpawnLevel();
     }
 
@@ -386,9 +471,12 @@ public class PipeManager : MonoBehaviour
     {
         if (pipes != null)
         {
-            for (int i = 0; i < _level.Row; i++)
+            int rows = pipes.GetLength(0);
+            int cols = pipes.GetLength(1);
+
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < _level.Column; j++)
+                for (int j = 0; j < cols; j++)
                 {
                     var p = pipes[i, j];
                     if (p != null)
@@ -396,33 +484,20 @@ public class PipeManager : MonoBehaviour
                         var cellGO = p.transform.parent ? p.transform.parent.gameObject : p.gameObject;
                         Destroy(cellGO);
                         pipes[i, j] = null;
-                        hasPipe[i, j] = false;
                     }
                 }
             }
         }
 
-        Pipe[] loosePipes = FindObjectsByType<Pipe>(FindObjectsSortMode.None);
-        foreach (var p in loosePipes)
-        {
-            if (p != null)
-            {
-                Destroy(p.gameObject);
-            }
-        }
+        hasPipe = null;
 
-        var cells = FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None);
-        foreach (var c in cells)
-        {
-            if (c.gameObject.name.Contains("Cell"))
-                Destroy(c.gameObject);
-        }
+        foreach (var p in FindObjectsByType<Pipe>(FindObjectsSortMode.None))
+            if (p != null) Destroy(p.gameObject);
 
-        if (externalPipe != null)
-        {
-            Destroy(externalPipe.gameObject);
-            externalPipe = null;
-        }
+        foreach (var sr in FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None))
+            if (sr.gameObject.name.Contains("Cell")) Destroy(sr.gameObject);
+
+        if (externalPipe != null) { Destroy(externalPipe.gameObject); externalPipe = null; }
 
         //Debug.Log("Board cleared");
     }
@@ -438,4 +513,30 @@ public class PipeManager : MonoBehaviour
         if (rotateSound != null)
             audioSource.PlayOneShot(rotateSound);
     }
+
+    public bool IsLevel1Completed() => GameManager.Instance.LevelCompleted.Length > 0 && GameManager.Instance.LevelCompleted[0];
+    public bool IsLevel2Completed() => GameManager.Instance.LevelCompleted.Length > 1 && GameManager.Instance.LevelCompleted[1];
+
+
+    private IEnumerator DelayCheck()
+    {
+        yield return new WaitForSeconds(0.5f);  
+        CheckFill();
+
+        if (!AllCellsAlreadyFilled())
+            CheckWin();
+    }
+
+    private bool AllCellsAlreadyFilled()
+    {
+        for (int i = 0; i < _level.Row; i++)
+            for (int j = 0; j < _level.Column; j++)
+            {
+                var pipe = pipes[i, j];
+                if (pipe == null || !pipe.IsFilled)
+                    return false;
+            }
+        return true;
+    }
+
 }

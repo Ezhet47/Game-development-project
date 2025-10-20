@@ -32,7 +32,6 @@ public class Teleport : MonoBehaviour
             collide = false;
             otherScript.canpress = false;
             
-            GameManager.Instance.PuzzleCompleted = false;
             GameManager.Instance.HasPlayedPuzzle = false;
             
             GameManager.Instance.GoToMainSceneBefore();

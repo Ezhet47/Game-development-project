@@ -18,7 +18,6 @@ public class UI_SceneSwitch : MonoBehaviour
     public void GoToMainBefore()
     {
         PlayClickSound();
-        GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneBefore();
     }

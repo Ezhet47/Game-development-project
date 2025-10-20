@@ -6,7 +6,12 @@ public class PanelManager : MonoBehaviour
     public GameObject bg;
     public GameObject lockedBG;
     public GameObject panel;       
-    public GameObject panelTest;  
+    public GameObject panelTest;
+
+    private void Awake()
+    {
+        SetAllInactive();           
+    }
 
     private void Start()
     {
@@ -15,25 +20,31 @@ public class PanelManager : MonoBehaviour
 
     public void UpdateSceneState()
     {
+        SetAllInactive();         
+
         bool hasCollected = GameManager.Instance.HasCollected;
         bool hasPlayed = GameManager.Instance.HasPlayedPuzzle;
-        bool completed = GameManager.Instance.PuzzleCompleted;
+
+        var mgr = PipeManager.Instance;
+        bool level1Done = mgr && mgr.IsLevel1Completed();
+        bool level2Done = mgr && mgr.IsLevel2Completed();
+
+        //Debug.Log($"[PanelManager] hasCollected={hasCollected}, hasPlayed={hasPlayed}, L1={level1Done}, L2={level2Done}");
 
         if (!hasCollected) { ShowLocked(); return; }
+        if (!hasPlayed) { ShowPanel(); return; }
+        if (!level1Done || !level2Done) { ShowBG(); return; }
 
-        if (!hasPlayed)
-        {
-            ShowPanel();
-        }
-        else if (!completed)
-        {
-            ShowBG();
-        }
-        else
-        {
-            ShowPanelTest();
-            GameManager.Instance.PuzzleCompleted = false;
-        }
+        //Debug.Log("[PanelManager] ¡ú ShowPanelTest()");
+        ShowPanelTest();
+    }
+
+    private void SetAllInactive()
+    {
+        if (bg) bg.SetActive(false);
+        if (lockedBG) lockedBG.SetActive(false);
+        if (panel) panel.SetActive(false);
+        if (panelTest) panelTest.SetActive(false);
     }
 
     public void ShowLocked()
@@ -76,7 +87,6 @@ public class PanelManager : MonoBehaviour
 
     public void ReturnToMain()
     {
-        GameManager.Instance.PuzzleCompleted = false;
         GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneBefore();
     }
@@ -84,7 +94,6 @@ public class PanelManager : MonoBehaviour
     private IEnumerator ReturnToMainAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        //GameManager.Instance.PuzzleCompleted = false;
         //GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneAfter();
     }
