@@ -137,28 +137,21 @@ public class PanelManager : MonoBehaviour
         cg.alpha = 0f;
 
         float t = 0f;
-        while (t < 0.5f)
+        while (t < 0.3f)
         {
             t += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(0f, 1f, t / 0.5f);
+            cg.alpha = Mathf.Lerp(0f, 1f, t / 0.3f);
             yield return null;
         }
         cg.alpha = 1f;
 
-        float timer = 0f;
-        while (timer < tutorialDuration)
-        {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-                break;
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
 
         t = 0f;
-        while (t < 0.5f)
+        while (t < 0.3f)
         {
             t += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(1f, 0f, t / 0.5f);
+            cg.alpha = Mathf.Lerp(1f, 0f, t / 0.3f);
             yield return null;
         }
         cg.alpha = 0f;

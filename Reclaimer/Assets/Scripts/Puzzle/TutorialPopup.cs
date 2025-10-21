@@ -39,14 +39,7 @@ public class TutorialPopup : MonoBehaviour
         }
         canvasGroup.alpha = 1f;
 
-        float timer = 0f;
-        while (timer < displayTime && isShowing)
-        {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-                break; 
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
 
         t = 0f;
         while (t < 0.3f)

@@ -8,7 +8,7 @@ public class PipeManager : MonoBehaviour
 
     //[SerializeField] private LevelData _level;
     [SerializeField] private GameObject _cellPrefab;
-    [SerializeField] private GameObject _backgroundPrefab;
+    //[SerializeField] private GameObject _backgroundPrefab;
     [SerializeField] private Vector3 _backgroundOffset = new Vector3(0, 0, 5);
     [SerializeField] private RectTransform targetPart;  
     [SerializeField] private float removeDistance = 150f;
@@ -68,13 +68,6 @@ public class PipeManager : MonoBehaviour
 
     private void SpawnLevel()
     {
-        // Spawn background
-        if (_backgroundPrefab != null)
-        {
-            GameObject bg = Instantiate(_backgroundPrefab);
-            bg.transform.position = new Vector3(_level.Column * 0.5f, _level.Row * 0.5f, _backgroundOffset.z);
-        }
-
         pipes = new Pipe[_level.Row, _level.Column];
         startPipes = new List<Pipe>();
         hasPipe = new bool[_level.Row, _level.Column];
