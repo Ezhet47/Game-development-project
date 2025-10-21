@@ -879,9 +879,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5707955d7c26941863b86df39e1499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleCompleted: 0
   HasPlayedPuzzle: 0
   HasCollected: 0
+  LevelCompleted: 0000
 --- !u!4 &663737271
 Transform:
   m_ObjectHideFlags: 0
