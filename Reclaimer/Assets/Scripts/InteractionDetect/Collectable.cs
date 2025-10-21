@@ -10,6 +10,9 @@ public class Collectable : MonoBehaviour
     public Transform focusPoint;           // QTE镜头与UI对焦点，空则用物体自身
 
     private Player cachedPlayer;
+   
+    public bool IsInteractable => collide;
+   
 
     [Header("GET Popup")]
     public Popup PopupPrefab;       // 预制体（Inspector 拖入）
