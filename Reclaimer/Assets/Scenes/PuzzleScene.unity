@@ -4715,11 +4715,11 @@ RectTransform:
   - {fileID: 1088028654}
   - {fileID: 503943391}
   - {fileID: 58500855}
-  - {fileID: 2108128906}
   - {fileID: 951997138}
   - {fileID: 1735222691}
   - {fileID: 916709500}
   - {fileID: 1393449376}
+  - {fileID: 2108128906}
   - {fileID: 464159763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4757,7 +4757,7 @@ MonoBehaviour:
   chipPanel: {fileID: 0}
   victoryPanel: {fileID: 0}
   uiElements:
-  - {fileID: 0}
+  - {fileID: 2108128905}
 --- !u!1 &1723954224
 GameObject:
   m_ObjectHideFlags: 0
@@ -6044,7 +6044,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1676752807}
         m_TargetAssemblyTypeName: UI_SceneSwitch, Assembly-CSharp
         m_MethodName: GoToMainMenu
         m_Mode: 1
