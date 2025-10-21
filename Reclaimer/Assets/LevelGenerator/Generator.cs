@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Generator : MonoBehaviour
 {
@@ -205,7 +207,9 @@ public class Generator : MonoBehaviour
             }
         }
 
+        #if UNITY_EDITOR
         EditorUtility.SetDirty(_level);
+        #endif
     }
 
     private void CheckWin()
