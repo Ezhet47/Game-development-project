@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - Screw
   - ExternalPipe
+  - CombineSlot
+  - Material
   layers:
   - Default
   - TransparentFX

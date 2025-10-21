@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.Linq;
+using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class PanelManager : MonoBehaviour
     public GameObject panelTest;
 
     [SerializeField] private GameObject tutorialImage;
-    [SerializeField] private float tutorialDuration = 5f;
     private bool tutorialShown = false;
 
     private void Awake()
@@ -58,6 +58,8 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(false);
         //Debug.Log("Display Locked Puzzle BG");
+        SetToolVisibility(false);
+
         var popup = FindFirstObjectByType<TutorialPopup>();
         if (popup != null)
         {
@@ -76,6 +78,9 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(false);
         //Debug.Log("Display BG");
+
+        SetToolVisibility(false);
+
         if (!tutorialShown && tutorialImage != null)
         {
             tutorialShown = true;
@@ -90,6 +95,8 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(true);
         panelTest.SetActive(false);
         //Debug.Log("Display Panel (Diagnosis)");
+        SetToolVisibility(true);
+
         var popup = FindFirstObjectByType<TutorialPopup>();
         if (popup != null)
         {
@@ -110,21 +117,17 @@ public class PanelManager : MonoBehaviour
         panel.SetActive(false);
         panelTest.SetActive(true);
         //Debug.Log("Display Panel_Test (Verification)");
+        var toolManager = GameObject.Find("ToolManager");
+        Debug.Log($"[ShowPanelTest] ToolManager found={toolManager != null}, activeSelf={toolManager?.activeSelf}, activeInHierarchy={toolManager?.activeInHierarchy}");
+        SetToolVisibility(true);
 
-        StartCoroutine(ReturnToMainAfterDelay(5f));
+        //StartCoroutine(ReturnToMainAfterDelay(5f));
     }
 
     public void ReturnToMain()
     {
         GameManager.Instance.HasPlayedPuzzle = false;
         GameManager.Instance.GoToMainSceneBefore();
-    }
-
-    private IEnumerator ReturnToMainAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        //GameManager.Instance.HasPlayedPuzzle = false;
-        GameManager.Instance.GoToMainSceneAfter();
     }
 
     private IEnumerator ShowTutorial()
@@ -157,6 +160,28 @@ public class PanelManager : MonoBehaviour
         cg.alpha = 0f;
 
         tutorialImage.SetActive(false);
+    }
+
+    private void SetToolVisibility(bool visible)
+    {
+        var toolManager = Resources.FindObjectsOfTypeAll<ToolManager>()
+                                   .FirstOrDefault(t => t.gameObject.scene.isLoaded);
+        if (toolManager != null)
+        {
+            var cg = toolManager.GetComponent<CanvasGroup>();
+            if (cg == null)
+                cg = toolManager.gameObject.AddComponent<CanvasGroup>();
+
+            cg.alpha = visible ? 1f : 0f;
+            cg.interactable = visible;
+            cg.blocksRaycasts = visible;
+
+            //Debug.Log($"[SetToolVisibility] ToolManager UI visibility={visible}");
+        }
+        else
+        {
+            //Debug.LogWarning("[SetToolVisibility] ToolManager not found");
+        }
     }
 
 

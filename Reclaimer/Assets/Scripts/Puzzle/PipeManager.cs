@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,15 @@ public class PipeManager : MonoBehaviour
 {
     public static PipeManager Instance;
 
-    //[SerializeField] private LevelData _level;
     [SerializeField] private GameObject _cellPrefab;
-    //[SerializeField] private GameObject _backgroundPrefab;
     [SerializeField] private Vector3 _backgroundOffset = new Vector3(0, 0, 5);
     [SerializeField] private RectTransform targetPart;  
     [SerializeField] private float removeDistance = 150f;
     [SerializeField] private float removeDuration = 0.8f;
+    public Pipe externalPipePrefab;
+    public int externalFixedType = 4;
+    private Pipe externalPipe;
+    private List<Pipe> externalPipes = new List<Pipe>();
 
     [SerializeField] private AudioClip placeSound;    
     [SerializeField] private AudioClip successSound;  
@@ -36,7 +39,12 @@ public class PipeManager : MonoBehaviour
     public PanelManager panelManager;
 
     public Animator cyberbodyAnimator;   
-    public float introDuration = 2f;     
+    public float introDuration = 2f;
+
+    [SerializeField] private GameObject[] materialPrefabs; 
+    private Transform resultSlot;    
+    public Transform ResultSlot => resultSlot;
+    [SerializeField] private GameObject combineSlotPrefab;
 
     private void Awake()
     {
@@ -99,12 +107,13 @@ public class PipeManager : MonoBehaviour
                 }
                 else if (currentLevelIndex == 1)
                 {
-                    // 第二关：第4行，第4列（索引从0开始 → 第4行是 i==3）
-                    tempPipe.IsDraggable = (i == _level.Row - 4 && j == 3);
+                    // 第二关：第4行，第4列 和 第4行，第3列
+                    bool first = (i == _level.Row - 4 && j == 2);
+                    bool second = (i == _level.Row - 2 && j == 3); 
+                    tempPipe.IsDraggable = first || second;
                 }
                 else
                 {
-                    // 其他关卡默认都不能拖
                     tempPipe.IsDraggable = false;
                 }
 
@@ -114,7 +123,7 @@ public class PipeManager : MonoBehaviour
                 }
             }
         }
-        SpawnExternalPipe();
+        //SpawnExternalPipe();
 
         Vector3 cameraPos = Camera.main.transform.position;
 
@@ -140,6 +149,7 @@ public class PipeManager : MonoBehaviour
         //CheckFill();
         //CheckWin();
         StartCoroutine(DelayCheck());
+        SpawnMaterials();
 
     }
 
@@ -271,29 +281,21 @@ public class PipeManager : MonoBehaviour
         }
     }
 
-    public Pipe externalPipePrefab;  
-    public int externalFixedType = 4;
-    private Pipe externalPipe;
-
-    public void SpawnExternalPipe()
+    public void SpawnExternalPipe(int index = 0)
     {
-        float spawnX = _level.Column + 2f;
+        float offsetX = _level.Column + 2f + index * 2f;
         float spawnY = _level.Row * 0.5f;
         //float spawnX = _level.Column * cellSize + 2f * cellSize;
         //float spawnY = _level.Row * cellSize * 0.5f;
 
+        Vector2 spawnPos = new Vector2(offsetX, spawnY);
 
-        Vector2 spawnPos = new Vector2(spawnX, spawnY);
-
-        externalPipe = Instantiate(externalPipePrefab, spawnPos, Quaternion.identity);
-
-        int pipeType = Mathf.Clamp(externalFixedType, 0, 6); 
-        externalPipe.Init(pipeType);
-        //externalPipe.transform.localScale = Vector3.one * cellSize;
-
-        externalPipe.IsDraggable = true;
-
-        externalPipe.gameObject.tag = "ExternalPipe";
+        Pipe pipe = Instantiate(externalPipePrefab, spawnPos, Quaternion.identity);
+        int pipeType = (index == 0) ? 4 : 6; 
+        pipe.Init(pipeType);
+        pipe.IsDraggable = true;
+        pipe.gameObject.tag = "ExternalPipe";
+        externalPipes.Add(pipe);
     }
 
     public bool IsInsideBoard(int row, int col)
@@ -308,36 +310,64 @@ public class PipeManager : MonoBehaviour
         return !hasPipe[row, col];
     }
 
-    public void PlacePipeAt(Pipe dragged, int row, int col)
+    //  供 PipeDragHandler 等使用的新主逻辑
+    public bool TryPlacePipeAt(Pipe dragged, int row, int col)
     {
         if (!IsInsideBoard(row, col))
-            return;
-        if (dragged.gameObject.CompareTag("ExternalPipe"))
+            return false;
+
+        if (hasPipe[row, col])
+            return false;
+
+        bool canPlace = false;
+        int type = dragged.PipeType;
+        int level = currentLevelIndex;
+
+        if (dragged.CompareTag("ExternalPipe"))
         {
-            bool canPlace = false;
-
-            if (currentLevelIndex == 0)
-                canPlace = (row == _level.Row - 1 && col == 3);
-            else if (currentLevelIndex == 1)
-                canPlace = (row == _level.Row - 4 && col == 3);
-
-            if (!canPlace)
-                return;
+            if (level == 0)
+            {
+                if (type == 4)
+                    canPlace = (row == _level.Row - 1 && col == 3);
+                else
+                    canPlace = false;
+            }
+            else if (level == 1)
+            {
+                if (type == 4)
+                    canPlace = (row == _level.Row - 2 && col == 3);
+                else if (type == 6)
+                    canPlace = (row == _level.Row - 4 && col == 2);
+            }
+        }
+        else
+        {
+            canPlace = IsEmptyAt(row, col);
         }
 
+        if (!canPlace)
+            return false;
 
+        DoPlace(dragged, row, col);
+        return true;
+    }
+
+    private void DoPlace(Pipe dragged, int row, int col)
+    {
         dragged.transform.position = GetCellCenter(row, col);
-
-        //dragged.transform.localScale = Vector3.one * cellSize;
-
         dragged.IsDraggable = true;
-
         pipes[row, col] = dragged;
         hasPipe[row, col] = true;
 
         if (isActiveAndEnabled)
             _ = StartCoroutine(ShowHintWrapper());
     }
+
+    public void PlacePipeAt(Pipe dragged, int row, int col)
+    {
+        TryPlacePipeAt(dragged, row, col);
+    }
+
 
 
     public void ClearPipeAt(int row, int col)
@@ -389,6 +419,18 @@ public class PipeManager : MonoBehaviour
     public void EnterVerification()
     {
         CurrentStage = GameStage.Verification;
+
+        foreach (var mat in GameObject.FindGameObjectsWithTag("Material"))
+            Destroy(mat);
+
+        foreach (var slot in GameObject.FindGameObjectsWithTag("CombineSlot"))
+            Destroy(slot);
+
+        foreach (var ext in GameObject.FindGameObjectsWithTag("ExternalPipe"))
+            Destroy(ext);
+
+        resultSlot = null;
+        externalPipes.Clear();
 
     }
     public void OnScrewRemoved()
@@ -457,8 +499,6 @@ public class PipeManager : MonoBehaviour
 
         SpawnLevel();
     }
-
-    
 
     private void ClearBoard()
     {
@@ -530,6 +570,54 @@ public class PipeManager : MonoBehaviour
                     return false;
             }
         return true;
+    }
+
+    public void SpawnMaterials()
+    {
+        if (materialPrefabs == null || materialPrefabs.Length == 0 || _level == null)
+            return;
+
+        float boardWidth = _level.Column;
+        float boardHeight = _level.Row;
+
+        Vector3 boardCenter = new Vector3(boardWidth * 0.5f, boardHeight * 0.5f, 0f);
+
+        float startX = boardCenter.x - boardWidth / 2f - 6f;  
+        float startY = boardCenter.y + boardHeight / 2f + 2f;
+        float xSpacing = 1.8f;
+
+        foreach (var old in GameObject.FindGameObjectsWithTag("Material"))
+            Destroy(old);
+
+        for (int i = 0; i < materialPrefabs.Length; i++)
+        {
+            Vector3 spawnPos = new Vector3(startX + i * xSpacing, startY, 0);
+            GameObject mat = Instantiate(materialPrefabs[i], spawnPos, Quaternion.identity);
+            mat.tag = "Material";
+            mat.transform.localScale = Vector3.one * 4f;   
+        }
+
+        float slotX = boardCenter.x - boardWidth / 2f - 5f;
+        float slotY = boardCenter.y - boardHeight / 2f - 1.2f;
+
+        if (combineSlotPrefab != null)
+        {
+            GameObject slot = Instantiate(combineSlotPrefab, new Vector3(slotX, slotY, 0), Quaternion.identity);
+            resultSlot = slot.transform;
+
+            if (slot.GetComponent<Collider2D>() == null)
+            {
+                var col = slot.AddComponent<BoxCollider2D>();
+                col.isTrigger = false;
+                col.size = new Vector2(1.2f, 1.2f);
+            }
+
+            slot.tag = "CombineSlot";
+        }
+        else
+        {
+            //Debug.LogWarning("CombineSlotPrefab 未设置，将无法合成外部管件。");
+        }
     }
 
 }

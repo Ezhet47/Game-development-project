@@ -8,9 +8,6 @@ public class TutorialPopup : MonoBehaviour
     public float displayTime = 5f;
     public CanvasGroup canvasGroup;
 
-    private Coroutine currentRoutine;
-    private bool isShowing = false;
-
     void Awake()
     {
         if (canvasGroup == null)
@@ -23,13 +20,11 @@ public class TutorialPopup : MonoBehaviour
         StopAllCoroutines();
         text.text = msg;
         gameObject.SetActive(true);
-        currentRoutine = StartCoroutine(ShowAndHide());
+        StartCoroutine(ShowAndHide());
     }
 
     private IEnumerator ShowAndHide()
     {
-        isShowing = true;
-
         float t = 0f;
         while (t < 0.3f)
         {
@@ -51,6 +46,5 @@ public class TutorialPopup : MonoBehaviour
 
         canvasGroup.alpha = 0f;
         gameObject.SetActive(false);
-        isShowing = false;
     }
 }

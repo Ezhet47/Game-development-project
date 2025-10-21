@@ -20,7 +20,7 @@ public class ScannerTool : MonoBehaviour
     public float detectionRadius = 100f;
     public KeyCode actionKey = KeyCode.F;   
 
-    private bool detected = false;     
+    //private bool detected = false;     
 
     private Vector2 originalPos;
 
@@ -65,7 +65,7 @@ public class ScannerTool : MonoBehaviour
             GameObject cyberbody = GameObject.Find("cyberbody");
             if (cyberbody != null)
             {
-                detected = true;
+                //detected = true;
                 StartCoroutine(ShowSuccess(cyberbody));
                 return;
             }
@@ -83,7 +83,7 @@ public class ScannerTool : MonoBehaviour
                 if (mode == ScanMode.Diagnosis && i == brokenPartIndex)
                 {
                     //Debug.Log("Abnormal part detected!");
-                    detected = true;
+                    //detected = true;
                     //StartCoroutine(ShowError(scanPoints[i]));
                     ShowError(scanPoints[i]);
 
@@ -94,7 +94,7 @@ public class ScannerTool : MonoBehaviour
                 if (mode == ScanMode.Verification)
                 {
                     //Debug.Log("Repair successful!");
-                    detected = true;
+                    //detected = true;
                     StartCoroutine(ShowSuccess(scanPoints[i]));
                     break;
                 }
@@ -179,7 +179,7 @@ public class ScannerTool : MonoBehaviour
     }
     public void ResetScanner()
     {
-        detected = false;
+        //detected = false;
         hasPlayedSound = false;
         scannerIcon.anchoredPosition = originalPos;
         if (scannerImage != null && normalSprite != null)

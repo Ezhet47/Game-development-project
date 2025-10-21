@@ -107,32 +107,22 @@ public class PipeDragHandler : MonoBehaviour
         if (isDragging && Input.GetMouseButtonUp(1))
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            PipeManager.Instance.WorldToCell(mouseWorld, out int row, out int col);
+            PipeManager pm = PipeManager.Instance;
+            pm.WorldToCell(mouseWorld, out int row, out int col);
 
             bool isExternal = gameObject.CompareTag("ExternalPipe");
-            //bool validCell = PipeManager.Instance.IsInsideBoard(row, col) &&
-            //                 PipeManager.Instance.IsEmptyAt(row, col) &&
-            //                 row == PipeManager.Instance.Level.Row - 1 &&
-            //                 col == 3;
-            int targetRow = PipeManager.Instance.Level.Row - 1;
-            if (PipeManager.Instance.CurrentLevelIndex == 1)
-                targetRow = PipeManager.Instance.Level.Row - 4;
-
-            bool validCell = PipeManager.Instance.IsInsideBoard(row, col) &&
-                             PipeManager.Instance.IsEmptyAt(row, col) &&
-                             row == targetRow &&
-                             col == 3;
-
 
             if (isExternal)
             {
-                if (validCell)
+                bool success = pm.TryPlacePipeAt(pipe, row, col);
+
+                if (success)
                 {
-                    PipeManager.Instance.PlacePipeAt(pipe, row, col);
-                    PipeManager.Instance.PlayPipePlaceSound();
+                    pm.PlayPipePlaceSound();
                     pipe.IsDraggable = false;
-                    if (PipeManager.Instance != null && PipeManager.Instance.isActiveAndEnabled)
-                        _ = PipeManager.Instance.StartCoroutine(PipeManager.Instance.ShowHintWrapper());
+
+                    if (pm.isActiveAndEnabled)
+                        _ = pm.StartCoroutine(pm.ShowHintWrapper());
                 }
                 else
                 {
@@ -141,14 +131,10 @@ public class PipeDragHandler : MonoBehaviour
             }
             else
             {
-                if (PipeManager.Instance.IsInsideBoard(row, col) &&
-                    PipeManager.Instance.IsEmptyAt(row, col))
+                if (pm.IsInsideBoard(row, col) && pm.IsEmptyAt(row, col))
                 {
-                    PipeManager.Instance.PlacePipeAt(pipe, row, col);
-                    PipeManager.Instance.PlayPipePlaceSound();
-                }
-                else
-                {
+                    pm.PlacePipeAt(pipe, row, col);
+                    pm.PlayPipePlaceSound();
                 }
             }
 
