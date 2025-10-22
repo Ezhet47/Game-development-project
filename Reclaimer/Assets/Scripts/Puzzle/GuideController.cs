@@ -21,10 +21,10 @@ public class GuideController : MonoBehaviour
     {
         if (isVisible && Input.GetMouseButtonDown(0))
         {
-            // 点击任意地方关闭
-            if (!RectTransformUtility.RectangleContainsScreenPoint(
-                guideImage.GetComponent<RectTransform>(),
-                Input.mousePosition))
+            //if (!RectTransformUtility.RectangleContainsScreenPoint(
+            //    guideImage.GetComponent<RectTransform>(),
+            //    Input.mousePosition))
+            if (isVisible && Input.GetMouseButtonDown(0))
             {
                 HideGuide();
             }
