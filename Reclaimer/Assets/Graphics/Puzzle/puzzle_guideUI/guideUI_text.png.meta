@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: eb46b28463194cc40822d8ca43149260
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5553085144666923670
+    second: guideUI_text_0
+  - first:
+      213: -5856293236437445242
+    second: guideUI_text_1
+  - first:
+      213: -328040017399512611
+    second: guideUI_text_2
+  - first:
+      213: 593196647063970570
+    second: guideUI_text_3
+  - first:
+      213: -1909274233318298421
+    second: guideUI_text_4
+  - first:
+      213: -1496227469731974658
+    second: guideUI_text_5
+  - first:
+      213: 2403850718659410733
+    second: guideUI_text_6
+  - first:
+      213: 6494054242711855890
+    second: guideUI_text_7
+  - first:
+      213: 2470821707282104448
+    second: guideUI_text_8
+  - first:
+      213: 6815806357541132311
+    second: guideUI_text_9
+  - first:
+      213: -888720841452592435
+    second: guideUI_text_10
+  - first:
+      213: -5617491918988161466
+    second: guideUI_text_11
+  - first:
+      213: 1854029728475196586
+    second: guideUI_text_12
+  - first:
+      213: 4450551760893524139
+    second: guideUI_text_13
+  - first:
+      213: -6127715969647064693
+    second: guideUI_text_14
+  - first:
+      213: -3896231907545613267
+    second: guideUI_text_15
+  - first:
+      213: 8852832164238054162
+    second: guideUI_text_16
+  - first:
+      213: 1176577317891538481
+    second: guideUI_text_17
+  - first:
+      213: 1558219062539049745
+    second: guideUI_text_18
+  - first:
+      213: 334218016235619573
+    second: guideUI_text_19
+  - first:
+      213: -6126261025429710224
+    second: guideUI_text_20
+  - first:
+      213: -6304378838044062298
+    second: guideUI_text_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: guideUI_text_0
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 183
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 692ee5f7485801d40800000000000000
+      internalID: 5553085144666923670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_1
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 185
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6859f9554544abea0800000000000000
+      internalID: -5856293236437445242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_2
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 183
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd10aca9751927bf0800000000000000
+      internalID: -328040017399512611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_3
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 185
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a03633625357b3800800000000000000
+      internalID: 593196647063970570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_4
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 185
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcca1485335e085e0800000000000000
+      internalID: -1909274233318298421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_5
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 185
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef1b17b2b055c3be0800000000000000
+      internalID: -1496227469731974658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_6
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 185
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2bf2c21e713c5120800000000000000
+      internalID: 2403850718659410733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_7
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 185
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21365f04de38f1a50800000000000000
+      internalID: 6494054242711855890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_8
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 185
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 080cfd5704f1a4220800000000000000
+      internalID: 2470821707282104448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_9
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 185
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 718961f35cb969e50800000000000000
+      internalID: 6815806357541132311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_10
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 185
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc26bb47a11aaa3f0800000000000000
+      internalID: -888720841452592435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_11
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 183
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64e4518ccd8aa02b0800000000000000
+      internalID: -5617491918988161466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_12
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 38
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac27c80736dab910800000000000000
+      internalID: 1854029728475196586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_13
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 39
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba83c8a1f3983cd30800000000000000
+      internalID: 4450551760893524139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_14
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 39
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89c2b8aacaf5faa0800000000000000
+      internalID: -6127715969647064693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_15
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 39
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2c733429bdcde9c0800000000000000
+      internalID: -3896231907545613267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_16
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 39
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 213df85f2f39bda70800000000000000
+      internalID: 8852832164238054162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_17
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 39
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13ef4bb36da045010800000000000000
+      internalID: 1176577317891538481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_18
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 39
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11bd1e84bf7ef9510800000000000000
+      internalID: 1558219062539049745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_19
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 39
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f48247d38163a400800000000000000
+      internalID: 334218016235619573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_20
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 39
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a11f14e062bfaa0800000000000000
+      internalID: -6126261025429710224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guideUI_text_21
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 38
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6adc4ec49d85288a0800000000000000
+      internalID: -6304378838044062298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      guideUI_text_0: 5553085144666923670
+      guideUI_text_1: -5856293236437445242
+      guideUI_text_10: -888720841452592435
+      guideUI_text_11: -5617491918988161466
+      guideUI_text_12: 1854029728475196586
+      guideUI_text_13: 4450551760893524139
+      guideUI_text_14: -6127715969647064693
+      guideUI_text_15: -3896231907545613267
+      guideUI_text_16: 8852832164238054162
+      guideUI_text_17: 1176577317891538481
+      guideUI_text_18: 1558219062539049745
+      guideUI_text_19: 334218016235619573
+      guideUI_text_2: -328040017399512611
+      guideUI_text_20: -6126261025429710224
+      guideUI_text_21: -6304378838044062298
+      guideUI_text_3: 593196647063970570
+      guideUI_text_4: -1909274233318298421
+      guideUI_text_5: -1496227469731974658
+      guideUI_text_6: 2403850718659410733
+      guideUI_text_7: 6494054242711855890
+      guideUI_text_8: 2470821707282104448
+      guideUI_text_9: 6815806357541132311
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
