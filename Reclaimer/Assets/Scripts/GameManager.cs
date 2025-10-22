@@ -28,22 +28,21 @@ public class GameManager : MonoBehaviour
 
     private const string MainMenu = "MainMenu";
     private const string MainSceneBefore = "MainSceneBefore";
-    private const string MainSceneAfter = "MainSceneAfter";
     private const string PuzzleScene = "PuzzleScene";
     private const string Collection = "Collection";
+    private const string MainSceneAfter = "MainSceneAfter";
+    private const string TheEnd = "TheEnd";
 
     public bool HasPlayedPuzzle = false;
     public bool HasCollected = false;
     public bool[] LevelCompleted = new bool[2];
 
-    public void GoToMainMenu()   => StartCoroutine(LoadSceneWithFade(MainMenu));
-    public void GoToMainSceneBefore()   => StartCoroutine(LoadSceneWithFade(MainSceneBefore));
-    public void GoToMainSceneAfter()    => StartCoroutine(LoadSceneWithFade(MainSceneAfter));
-    public void GoToPuzzleScene()
-    {
-        StartCoroutine(LoadSceneWithFade(PuzzleScene));
-    }
+    public void GoToMainMenu() => StartCoroutine(LoadSceneWithFade(MainMenu));
+    public void GoToMainSceneBefore() => StartCoroutine(LoadSceneWithFade(MainSceneBefore));
+    public void GoToMainSceneAfter() => StartCoroutine(LoadSceneWithFade(MainSceneAfter));
+    public void GoToPuzzleScene() => StartCoroutine(LoadSceneWithFade(PuzzleScene));
     public void GoToCollection()  => StartCoroutine(LoadSceneWithFade(Collection));
+    public void GoToTheEnd() => StartCoroutine(LoadSceneWithFade(TheEnd));
 
     private UI_FadeScreen FindFadeScreenUI()
     {

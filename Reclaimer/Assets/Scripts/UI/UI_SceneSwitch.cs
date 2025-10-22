@@ -40,6 +40,12 @@ public class UI_SceneSwitch : MonoBehaviour
         GameManager.Instance.GoToCollection();
     }
     
+    public void GoToTheEnd()
+    {
+        PlayClickSound();
+        GameManager.Instance.GoToTheEnd();
+    }
+    
     public void QuitGame()
     {
         Application.Quit();
