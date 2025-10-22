@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
@@ -24,9 +25,12 @@ public class UI_Dialogue : MonoBehaviour
     private bool waitingToConfirm;
     private bool canInteract;
     private bool choicesEnabled;
+    public event Action DialogueClosed;
+    [SerializeField] private bool end = false;
     
     [SerializeField] private AudioSource typeSfxSource;
     [SerializeField] private AudioClip typeSfx;
+    
     
     private void Awake()
     {
@@ -72,6 +76,14 @@ public class UI_Dialogue : MonoBehaviour
                 break;
             case DialogueActionType.CloseDialogue:
                 ui.SwitchToInGameUI();
+                
+                if (end && GameManager.Instance != null)
+                {
+                    GameManager.Instance.GoToTheEnd();
+                }
+                
+                DialogueClosed?.Invoke();
+                DialogueClosed = null;
                 break;
         }
     }
