@@ -25,13 +25,14 @@ public class InteractionDetect : MonoBehaviour
     {
         if (!other.CompareTag("Interactable")) return;
 
-        // 既支持 Collectable，也支持 DialogueTrigger
         var col = other.GetComponentInParent<Collectable>();
         var dlg = other.GetComponentInParent<DialogueTrigger>();
+        var tp = other.GetComponentInParent<Teleport>();     // ? 新增
 
         bool available = false;
-        if (col != null) available |= col.IsInteractable;        // 你在 Collectable 里已经加过 IsInteractable
-        if (dlg != null) available |= dlg.IsInteractable;        // 第1步新增的属性
+        if (col != null) available |= col.IsInteractable;
+        if (dlg != null) available |= dlg.IsInteractable;
+        if (tp != null) available |= tp.IsInteractable;      // ? 新增
 
         canpress = available;
     }

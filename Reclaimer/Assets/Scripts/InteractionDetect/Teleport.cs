@@ -3,16 +3,27 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     [Header("Interaction")]
-    public InteractionDetect otherScript;
+    public InteractionDetect otherScript;  
     private bool collide = true;
     private bool playerInRange = false;
+
+
+    public bool IsInteractable
+    {
+        get
+        {
+          
+            bool dialogueBusy = DialogueUI.Instance != null && DialogueUI.Instance.IsShowing;
+            return playerInRange && collide && !dialogueBusy;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             playerInRange = true;
-            otherScript.canpress = true;
+       
         }
     }
 
@@ -21,7 +32,7 @@ public class Teleport : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = false;
-            otherScript.canpress = false;
+          
         }
     }
 
@@ -30,10 +41,10 @@ public class Teleport : MonoBehaviour
         if (playerInRange && collide && Input.GetKeyDown(KeyCode.E))
         {
             collide = false;
-            otherScript.canpress = false;
-            
+
+            if (otherScript) otherScript.canpress = false;
+
             GameManager.Instance.HasPlayedPuzzle = false;
-            
             GameManager.Instance.GoToMainSceneBefore();
         }
     }
