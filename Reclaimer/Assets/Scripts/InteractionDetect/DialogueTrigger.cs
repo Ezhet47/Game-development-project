@@ -1,23 +1,28 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class DialogueTrigger : MonoBehaviour
 {
     [TextArea(2, 5)]
-    public string[] pages;               // ¶àÒ³ÎÄ±¾
-    public Transform bubbleAnchor;       // ÆøÅİ¸úËæµÄµã£¨²»Ìî¾Í¸úËæÍæ¼Ò£©
+    public string[] pages;               // å¤šé¡µæ–‡æœ¬
+    public Transform bubbleAnchor;       // æ°”æ³¡è·Ÿéšçš„ç‚¹ï¼ˆä¸å¡«å°±è·Ÿéšç©å®¶ï¼‰
     public KeyCode interactKey = KeyCode.E;
+
+    // ğŸ‘‡ æ–°å¢ï¼šæç¤ºç‰©ä½“å¼•ç”¨
+    [Header("æç¤ºç‰©ä½“ï¼ˆå¯é€‰ï¼‰")]
+    public GameObject hintObject;        // æŒ‚ä½ åœ¨è§¦å‘å™¨ä¸‹çš„æç¤ºï¼ˆæ¯”å¦‚â€œæŒ‰Eâ€ï¼‰
 
     private bool playerIn;
     private Player cachedPlayer;
+
     public bool IsInteractable
     {
         get
         {
-            // Íæ¼ÒÔÚÅö×²¿òÄÚ ÇÒ µ±Ç°Ã»ÓĞ¶Ô»°ÔÚ½øĞĞ ²ÅËã¿É½»»¥
+            // ç©å®¶åœ¨ç¢°æ’æ¡†å†… ä¸” å½“å‰æ²¡æœ‰å¯¹è¯åœ¨è¿›è¡Œ æ‰ç®—å¯äº¤äº’
             var ui = DialogueUI.Instance;
             bool dialogueBusy = (ui != null && ui.IsShowing);
-            return playerIn && !dialogueBusy;   // playerIn ÊÇÄã½Å±¾ÀïÒÑÓĞµÄ²¼¶ûÖµ
+            return playerIn && !dialogueBusy;   // playerIn æ˜¯ä½ è„šæœ¬é‡Œå·²æœ‰çš„å¸ƒå°”å€¼
         }
     }
 
@@ -50,12 +55,19 @@ public class DialogueTrigger : MonoBehaviour
             var ui = DialogueUI.Instance;
             if (ui == null) { Debug.LogWarning("No DialogueUI in scene."); return; }
 
-            // ÒÑ¾­ÔÚ¶Ô»°ÖĞÔò½»ÓÉ UI ×Ô¼º´¦Àí£¨E ¼ü»á²¹Íê/ÏÂÒ»Ò³£©
+            // å·²ç»åœ¨å¯¹è¯ä¸­åˆ™äº¤ç”± UI è‡ªå·±å¤„ç†ï¼ˆE é”®ä¼šè¡¥å®Œ/ä¸‹ä¸€é¡µï¼‰
             if (ui.IsShowing) return;
 
-            // ¿ªÊ¼¶Ô»°
+            // å¼€å§‹å¯¹è¯
             Transform follow = bubbleAnchor ? bubbleAnchor : (cachedPlayer ? cachedPlayer.transform : transform);
             ui.StartDialogue(pages, follow, cachedPlayer);
+
+            // ğŸ‘‡ æ–°å¢ï¼šå¼€å§‹å¯¹è¯åé”€æ¯æç¤ºç‰©ä½“
+            if (hintObject != null)
+            {
+                Destroy(hintObject);
+                hintObject = null; // é˜²æ­¢é‡å¤å¼•ç”¨
+            }
         }
     }
 }
