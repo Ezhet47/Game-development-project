@@ -41,7 +41,15 @@ public class GameManager : MonoBehaviour
     public void GoToMainSceneBefore() => StartCoroutine(LoadSceneWithFade(MainSceneBefore));
     public void GoToMainSceneAfter() => StartCoroutine(LoadSceneWithFade(MainSceneAfter));
     public void GoToPuzzleScene() => StartCoroutine(LoadSceneWithFade(PuzzleScene));
-    public void GoToCollection()  => StartCoroutine(LoadSceneWithFade(Collection));
+    public void GoToCollection()
+    {
+        if (HasCollected)
+        {
+            return;
+        }
+        StartCoroutine(LoadSceneWithFade(Collection));
+    }
+
     public void GoToTheEnd() => StartCoroutine(LoadSceneWithFade(TheEnd));
 
     private UI_FadeScreen FindFadeScreenUI()
