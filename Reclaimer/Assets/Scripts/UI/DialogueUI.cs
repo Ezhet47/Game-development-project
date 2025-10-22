@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -7,40 +7,60 @@ using UnityEngine.UI;
 public class DialogueUI : MonoBehaviour
 {
     [Header("Canvas & UI")]
-    public Canvas targetCanvas;              // ÄãµÄ UI Canvas£¨Screen Space - Camera / Overlay / World Space ¶¼Ö§³Ö£©
-    public RectTransform bubbleRoot;         // ÆøÅİÃæ°å¸ù½Úµã£¨RectTransform£©
-    public TextMeshProUGUI textLabel;        // ÎÄ±¾
-    public CanvasGroup canvasGroup;          // µ­Èëµ­³ö¡¢À¹½Øµã»÷£¨¿ÉÑ¡£©
+    public Canvas targetCanvas;              // UI Canvasï¼ˆScreen Space - Camera / Overlay / World Spaceï¼‰
+    public RectTransform bubbleRoot;         // æ°”æ³¡é¢æ¿æ ¹èŠ‚ç‚¹
+    public TextMeshProUGUI textLabel;        // æ–‡æœ¬
+    public CanvasGroup canvasGroup;          // æ·¡å…¥æ·¡å‡ºã€æ‹¦æˆªç‚¹å‡»
 
     [Header("Typing")]
-    [Range(1, 120)] public float charsPerSecond = 25f;  // ´ò×Ö»úËÙ¶È
-    public bool clickToCompleteLine = true;             // ´ò×ÖÖĞ°´EÊÇ·ñÁ¢¿Ì²¹Íê
-    public Vector3 worldOffset = new Vector3(0f, 1.5f, 0f); // Í·¶¥Æ«ÒÆ£¨ÊÀ½çµ¥Î»£©
+    [Range(1, 120)] public float charsPerSecond = 25f;  // æ‰“å­—æœºé€Ÿåº¦
+    public bool clickToCompleteLine = true;             // æ‰“å­—ä¸­æŒ‰Eæ˜¯å¦ç«‹åˆ»è¡¥å®Œ
+    public Vector3 worldOffset = new Vector3(0f, 1.5f, 0f); // å¤´é¡¶åç§»ï¼ˆä¸–ç•Œå•ä½ï¼‰
+
+    [Header("E-Hintï¼ˆåƒ InteractionDetect ä¸€æ ·æ§åˆ¶ï¼‰")]
+    public GameObject eHintRoot;             // å°å›¾æ ‡ + æ–‡æ¡ˆ å®¹å™¨
+    public Image eHintIcon;                  // E é”®ç¾æœ¯
+    public TextMeshProUGUI eHintLabel;       // æç¤ºæ–‡æ¡ˆï¼šâ€œæŒ‰ E è¡¥å®Œ / ä¸‹ä¸€é¡µ / ç»“æŸâ€
+    public bool canPress = false;            // æ§åˆ¶æ˜¾éš
+    public bool followPlayerFlipX = false;   // è·Ÿéšç©å®¶å·¦å³ç¿»è½¬ï¼ˆå¯é€‰ï¼‰
 
     [Header("Input Guard")]
-    [SerializeField] private float inputIgnoreDuration = 0.1f; // ¿ªÊ¼ºóºöÂÔÊäÈëµÄÊ±³¤£¨Ãë£©
+    [SerializeField] private float inputIgnoreDuration = 0.1f; // å¼€å§‹åå¿½ç•¥è¾“å…¥çš„æ—¶é•¿
     private float inputAllowedAt = 0f;
 
-    [Header("E-Hint£¨Ïñ InteractionDetect Ò»Ñù¿ØÖÆ£©")]
-    public GameObject eHintRoot;             // Ğ¡Í¼±ê + ÎÄ°¸ µÄÈİÆ÷£¨¹ÒÔÚ bubbleRoot ÏÂ£©
-    public Image eHintIcon;                  // ÄãµÄ°´¼üÃÀÊõ£¨E ¼üÍ¼£©
-    public TextMeshProUGUI eHintLabel;       // ÌáÊ¾ÎÄ°¸£º¡°°´ E ²¹Íê / ÏÂÒ»Ò³ / ½áÊø¡±
-    public bool canPress = false;            // ¿ØÖÆÏÔÒş£¨·Â InteractionDetect.canpress£©
-    public bool followPlayerFlipX = false;   // ¸úËæÍæ¼Ò×óÓÒ·­×ª£¨¿ÉÑ¡£©
+    // === è¯´è¯ blipï¼ˆUndertale é£ï¼‰ ===
+    [Header("Voice / Blip Settings")]
+    public AudioSource voiceSource;          // å»ºè®®æŒ‚åœ¨ DialogueUI èŠ‚ç‚¹ä¸Š
+    public AudioClip[] blipClips;            // ä¸€ç»„æçŸ­çš„â€œå˜Ÿâ€éŸ³ï¼ˆå¯ 1~4 ä¸ªï¼‰
+    [Tooltip("blip è§¦å‘é—´éš”ï¼ˆç§’ï¼‰ï¼Œé˜²æ­¢è¿‡å¯†ï¼›ç•™ç©ºåˆ™æŒ‰é€Ÿåº¦è‡ªåŠ¨ç®—")]
+    public float blipInterval = -1f;         // <=0 æ—¶è‡ªåŠ¨ï¼š0.6 * (1/charsPerSecond)
+    [Range(0f, 1f)] public float blipVolume = 0.9f;
+    [Tooltip("é¿å…å¯¹ç©ºæ ¼ä¸å¸¸è§æ ‡ç‚¹è§¦å‘ blip")]
+    public string muteChars = " \n\r\t.,;:!?ï¼Œã€‚ï¼›ï¼šï¼ï¼Ÿâ€¦";
+    [Tooltip("éŸ³é«˜éšæœºèŒƒå›´")]
+    public Vector2 pitchRandom = new Vector2(0.96f, 1.04f);
+    [Tooltip("æ¯ N ä¸ªå­—ç¬¦æ‰è§¦å‘ä¸€æ¬¡ blipï¼ˆ1 = æ¯ä¸ªåˆæ ¼å­—ç¬¦éƒ½è§¦å‘ï¼‰")]
+    public int blipEveryNChars = 1;
+    [Header("Blip Audio Pool")]
+    [SerializeField] private int blipPoolSize = 6;   // åŒæ—¶æœ€å¤šé‡å 6ä¸ªblip
+    private AudioSource[] blipPool;
+    private int blipPoolCursor = 0;
 
-    // ÔËĞĞÊ±
+    // è¿è¡Œæ—¶
     private List<string> lines = new List<string>();
     private int index = -1;
     private Coroutine typingRoutine;
     private bool isShowing = false;
     private bool isTyping = false;
+    private float nextBlipTime = 0f;
+    private int typedCountOnLine = 0;
 
-    private Transform followTarget;          // ÆøÅİ¸úËæË­£¨Íæ¼Ò»òNPC£©
-    private Transform playerTransForFlip;    // ÓÃÓÚ×óÓÒ·­×ª
-    private Player cachedPlayer;             // Ëø/½âËøÒÆ¶¯
+    private Transform followTarget;          // æ°”æ³¡è·Ÿéšè°ï¼ˆç©å®¶æˆ–NPCï¼‰
+    private Transform playerTransForFlip;    // ç”¨äºå·¦å³ç¿»è½¬
+    private Player cachedPlayer;             // é”/è§£é”ç§»åŠ¨
     private Camera cam;
 
-    // µ¥Àı£¨·½±ã´¥·¢Æ÷µ÷ÓÃ£©
+    // å•ä¾‹
     public static DialogueUI Instance { get; private set; }
     public bool IsShowing => isShowing;
 
@@ -60,7 +80,26 @@ public class DialogueUI : MonoBehaviour
         if (!bubbleRoot) bubbleRoot = GetComponent<RectTransform>();
         cam = Camera.main;
 
+        // å¦‚æœæ²¡æŒ‚ AudioSourceï¼Œè‡ªåŠ¨åŠ ä¸€ä¸ªï¼ˆé™éŸ³ 3D é€‰é¡¹éƒ½å¯é»˜è®¤ï¼‰
+        if (!voiceSource) voiceSource = GetComponent<AudioSource>();
+        if (!voiceSource) voiceSource = gameObject.AddComponent<AudioSource>();
+        voiceSource.playOnAwake = false;
+        voiceSource.loop = false;
+        voiceSource.spatialBlend = 0f; // UI å£°éŸ³ä¸€èˆ¬ç”¨ 2D
+
         HideImmediate();
+        blipPool = new AudioSource[blipPoolSize];
+        for (int i = 0; i < blipPoolSize; i++)
+        {
+            var src = gameObject.AddComponent<AudioSource>();
+            src.playOnAwake = false;
+            src.loop = false;
+            src.spatialBlend = 0f;   // 2D
+            src.dopplerLevel = 0f;
+            src.rolloffMode = AudioRolloffMode.Linear;
+            src.volume = 1f;         // å®é™…éŸ³é‡ç”¨ Play å‰è®¾ç½®
+            blipPool[i] = src;
+        }
     }
 
     void LateUpdate()
@@ -71,7 +110,7 @@ public class DialogueUI : MonoBehaviour
             return;
         }
 
-        // ¡ª¡ª °Ñ¡°ÊÀ½çÎ»ÖÃ(Í·¶¥Æ«ÒÆ)¡±×ª»»µ½ Canvas ×ø±ê²¢¶¨Î»ÆøÅİ ¡ª¡ª
+        // â€”â€” æŠŠâ€œä¸–ç•Œä½ç½®(å¤´é¡¶åç§»)â€è½¬æ¢åˆ° Canvas åæ ‡å¹¶å®šä½æ°”æ³¡ â€”â€”
         var worldPos = followTarget.position + worldOffset;
 
         if (targetCanvas.renderMode == RenderMode.WorldSpace)
@@ -92,7 +131,6 @@ public class DialogueUI : MonoBehaviour
                 out Vector2 local
             );
 
-            // Éè¸¸²¢·ÅÖÃ
             if (bubbleRoot.parent != canvasRect)
                 bubbleRoot.SetParent(canvasRect, worldPositionStays: false);
 
@@ -100,17 +138,20 @@ public class DialogueUI : MonoBehaviour
             bubbleRoot.localRotation = Quaternion.identity;
         }
 
-        // ¡ª¡ª ÊäÈë£¨E¼ü£©£º²¹Íê »ò ·­Ò³ ¡ª¡ª
-        if (Input.GetKeyDown(KeyCode.E))
+        // â€”â€” è¾“å…¥ï¼ˆEï¼‰ï¼šå…ˆè¿‡è¾“å…¥é—¨æ§›æ—¶é—´ï¼Œå†å¤„ç†è¡¥å®Œ/ç¿»é¡µ â€”â€”
+        if (Time.time >= inputAllowedAt && Input.GetKeyDown(KeyCode.E))
         {
-            if (Time.time >= inputAllowedAt && Input.GetKeyDown(KeyCode.E))
+            if (isTyping && clickToCompleteLine)
             {
-                if (isTyping && clickToCompleteLine) { CompleteTypingInstant(); }
-                else { Next(); }
+                CompleteTypingInstant();        // æ‰“å­—ä¸­ â†’ ç«‹åˆ»è¡¥å®Œ
+            }
+            else
+            {
+                Next();                         // å·²æ‰“å®Œ â†’ ä¸‹ä¸€é¡µ/ç»“æŸ
             }
         }
 
-        // ¡ª¡ª E¼üÌáÊ¾µÄÏÔÒşÓë·­×ª£¨Ä£·Â InteractionDetect ·ç¸ñ£© ¡ª¡ª
+        // â€”â€” Eé”®æç¤ºæ˜¾éš/ç¿»è½¬ â€”â€”
         ApplyEHintActive();
 
         if (followPlayerFlipX && playerTransForFlip && eHintRoot)
@@ -125,7 +166,7 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    // ¡ª¡ª ¿ªÊ¼¶Ô»° ¡ª¡ª
+    // â€”â€” å¼€å§‹å¯¹è¯ â€”â€”
     public void StartDialogue(IEnumerable<string> content, Transform follow, Player player)
     {
         lines.Clear();
@@ -134,11 +175,11 @@ public class DialogueUI : MonoBehaviour
         cachedPlayer = player ? player : FindObjectOfType<Player>();
         index = -1;
 
-        // ËøÒÆ¶¯
+        // é”ç§»åŠ¨
         if (cachedPlayer) cachedPlayer.canMove = false;
         if (cachedPlayer) playerTransForFlip = cachedPlayer.transform;
 
-        // ÏÔÊ¾Ãæ°å
+        // æ˜¾ç¤ºé¢æ¿
         isShowing = true;
         if (canvasGroup)
         {
@@ -148,16 +189,19 @@ public class DialogueUI : MonoBehaviour
         }
         bubbleRoot.gameObject.SetActive(true);
 
-        // E ¼üÌáÊ¾£ºÔÊĞíÏÔÊ¾£¬²¢ÔÚµÚÒ»ĞĞ¿ªÊ¼Ç°ÏÔÊ¾¡°°´E²¹Íê¡±
+        // E æç¤º
         canPress = true;
         UpdateEHintTypingState(true);
         ApplyEHintActive();
 
-        Next(); // ²¥·ÅµÚÒ»¾ä
+        // å¯åŠ¨ç¬¬ä¸€è¡Œ
+        Next();
+
+        // è¾“å…¥é˜²æŠ–ï¼šé¿å…â€œåŒå¸§ Eâ€ç›´æ¥è¡¥å®Œ
         inputAllowedAt = Time.time + inputIgnoreDuration;
     }
 
-    // ¡ª¡ª ÏÂÒ»Ò³ or ½áÊø ¡ª¡ª
+    // â€”â€” ä¸‹ä¸€é¡µ or ç»“æŸ â€”â€”
     public void Next()
     {
         if (!isShowing) return;
@@ -173,28 +217,75 @@ public class DialogueUI : MonoBehaviour
         typingRoutine = StartCoroutine(TypeLine(lines[index]));
     }
 
-    // ¡ª¡ª ´ò×Ö»ú ¡ª¡ª
+    // â€”â€” æ‰“å­—æœº + blip â€”â€” 
     private IEnumerator TypeLine(string line)
     {
         isTyping = true;
-        UpdateEHintTypingState(true);      // ÕıÔÚ´ò×Ö£ºÌáÊ¾¡°°´E²¹Íê¡±
-
+        UpdateEHintTypingState(true);      // æ­£åœ¨æ‰“å­—ï¼šæç¤ºâ€œæŒ‰Eè¡¥å®Œâ€
         textLabel.text = "";
-        float delay = 1f / Mathf.Max(1f, charsPerSecond);
+        typedCountOnLine = 0;
+
+        float perCharDelay = 1f / Mathf.Max(1f, charsPerSecond);
+        float interval = (blipInterval > 0f) ? blipInterval : (perCharDelay * 0.6f); // è‡ªåŠ¨é™é¢‘
+        nextBlipTime = 0f; // ç«‹åˆ»å…è®¸é¦–ä¸ªå­—ç¬¦å‘å£°
 
         foreach (char c in line)
         {
             textLabel.text += c;
-            yield return new WaitForSeconds(delay);
+            typedCountOnLine++;
+
+            TryPlayBlip(c, interval);
+
+            yield return new WaitForSeconds(perCharDelay);
         }
 
         isTyping = false;
         typingRoutine = null;
 
-        UpdateEHintTypingState(false);     // ´òÍê£ºÌáÊ¾¡°°´EÏÂÒ»Ò³/½áÊø¡±
+        UpdateEHintTypingState(false);     // æ‰“å®Œï¼šæç¤ºâ€œæŒ‰Eä¸‹ä¸€é¡µ/ç»“æŸâ€
     }
 
-    // ¡ª¡ª Á¢¿Ì²¹Íêµ±Ç°Ò³ ¡ª¡ª
+    private void TryPlayBlip(char c, float interval)
+    {
+        if (blipClips == null || blipClips.Length == 0) return;
+
+        // è·³è¿‡ç©ºç™½/æ ‡ç‚¹
+        if (muteChars.Contains(c.ToString())) return;
+
+        // è§¦å‘é¢‘ç‡é™åˆ¶ & æ¯Nå­—ç¬¦è§¦å‘ä¸€æ¬¡
+        if (Time.time < nextBlipTime) return;
+        if (blipEveryNChars > 1 && (typedCountOnLine % blipEveryNChars) != 0) return;
+
+        // å–ä¸€ä¸ªå¯ç”¨æ± éŸ³æºï¼ˆä¸ Stop æ­£åœ¨æ’­çš„ï¼‰
+        AudioSource src = null;
+        for (int k = 0; k < blipPoolSize; k++)
+        {
+            int idxPool = (blipPoolCursor + k) % blipPoolSize;
+            if (!blipPool[idxPool].isPlaying) { src = blipPool[idxPool]; blipPoolCursor = (idxPool + 1) % blipPoolSize; break; }
+        }
+        // å¦‚æœå…¨åœ¨æ’­ï¼Œå¼ºè¡Œå¤ç”¨ä¸‹ä¸€ä¸ªï¼ˆéå¸¸å°‘è§ï¼‰ï¼šä»ç„¶ä¸ä¼šâ€œå’”â€ï¼Œä½†ä¼šæˆªæ–­å…¶ä¸­ä¸€ä¸ªæœ€æ—§çš„
+        if (src == null)
+        {
+            src = blipPool[blipPoolCursor];
+            blipPoolCursor = (blipPoolCursor + 1) % blipPoolSize;
+        }
+
+        // éšæœºé€‰æ‹©ç‰‡æ®µ & éŸ³é«˜
+        int idx = Random.Range(0, blipClips.Length);
+        var clip = blipClips[idx];
+
+        src.clip = clip;
+        src.pitch = Random.Range(pitchRandom.x, pitchRandom.y);
+        src.volume = blipVolume;
+
+        // æ’­æ”¾ï¼ˆä¸ Stopï¼Œé¿å…ç‚¹å‡»ï¼‰
+        src.Play();
+
+        // ä¸‹æ¬¡æœ€æ—©è§¦å‘æ—¶é—´
+        nextBlipTime = Time.time + (interval > 0f ? interval : 0.04f);
+    }
+
+    // â€”â€” ç«‹åˆ»è¡¥å®Œå½“å‰é¡µ â€”â€” 
     private void CompleteTypingInstant()
     {
         if (!isTyping) return;
@@ -204,10 +295,10 @@ public class DialogueUI : MonoBehaviour
         isTyping = false;
         typingRoutine = null;
 
-        UpdateEHintTypingState(false);     // ²¹Íêºó£ºÌáÊ¾¡°°´EÏÂÒ»Ò³/½áÊø¡±
+        UpdateEHintTypingState(false);     // è¡¥å®Œåï¼šæç¤ºâ€œæŒ‰Eä¸‹ä¸€é¡µ/ç»“æŸâ€
     }
 
-    // ¡ª¡ª ½áÊø¶Ô»°£¨½âËøÒÆ¶¯£© ¡ª¡ª
+    // â€”â€” ç»“æŸå¯¹è¯ï¼ˆè§£é”ç§»åŠ¨ï¼‰ â€”â€”
     public void EndDialogue()
     {
         isShowing = false;
@@ -222,14 +313,14 @@ public class DialogueUI : MonoBehaviour
 
         if (cachedPlayer) cachedPlayer.canMove = true;
 
-        // ÊÕÎ²
+        // æ”¶å°¾
         lines.Clear();
         index = -1;
         followTarget = null;
         playerTransForFlip = null;
         cachedPlayer = null;
 
-        // Òş²Ø E ÌáÊ¾
+        // éšè— E æç¤º
         canPress = false;
         ApplyEHintActive();
     }
@@ -247,7 +338,7 @@ public class DialogueUI : MonoBehaviour
         ApplyEHintActive();
     }
 
-    // ¡ª¡ª E ÌáÊ¾ÏÔÒş & ÎÄ°¸ ¡ª¡ª 
+    // â€”â€” E æç¤ºæ˜¾éš & æ–‡æ¡ˆ â€”â€” 
     private void ApplyEHintActive()
     {
         if (eHintRoot) eHintRoot.SetActive(canPress);
@@ -259,12 +350,12 @@ public class DialogueUI : MonoBehaviour
 
         if (typing)
         {
-            eHintLabel.text = "°´ E ²¹Íê";
+            eHintLabel.text = "æŒ‰ E è¡¥å®Œ";
         }
         else
         {
             bool isLast = (index >= 0 && index == lines.Count - 1);
-            eHintLabel.text = isLast ? "°´ E ½áÊø" : "°´ E ÏÂÒ»Ò³";
+            eHintLabel.text = isLast ? "æŒ‰ E ç»“æŸ" : "æŒ‰ E ä¸‹ä¸€é¡µ";
         }
     }
 }
