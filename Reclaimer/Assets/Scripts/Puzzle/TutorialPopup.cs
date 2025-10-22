@@ -5,7 +5,6 @@ using System.Collections;
 public class TutorialPopup : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    public float displayTime = 5f;
     public CanvasGroup canvasGroup;
 
     void Awake()

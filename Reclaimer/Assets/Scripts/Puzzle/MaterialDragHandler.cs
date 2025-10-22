@@ -49,6 +49,11 @@ public class MaterialDragHandler : MonoBehaviour
                 {
                     transform.position = hit.transform.position;
                     transform.SetParent(hit.transform);
+
+                    var mgr = PipeManager.Instance;
+                    if (mgr != null)
+                        mgr.PlayCombineSlotSound();
+
                     TryCombineIfAllReady();
                     return;
                 }
@@ -87,6 +92,8 @@ public class MaterialDragHandler : MonoBehaviour
         {
             DestroyAll(slot);
             mgr.SpawnExternalPipe(group1 ? 0 : 1);
+
+            mgr.PlayCombineSuccessSound();
         }
         else
         {

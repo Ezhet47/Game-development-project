@@ -21,6 +21,8 @@ public class PipeManager : MonoBehaviour
     [SerializeField] private AudioClip successSound;  
     [SerializeField] private AudioClip rotateSound;   
     private AudioSource audioSource;
+    [SerializeField] private AudioClip combineSlotSound;   
+    [SerializeField] private AudioClip combineSuccessSound;
 
     [SerializeField] private List<LevelData> levels;  
     private LevelData _level;                       
@@ -45,6 +47,7 @@ public class PipeManager : MonoBehaviour
     private Transform resultSlot;    
     public Transform ResultSlot => resultSlot;
     [SerializeField] private GameObject combineSlotPrefab;
+    [SerializeField] private GameObject combineSlotLabelPrefab;
 
     private void Awake()
     {
@@ -547,6 +550,18 @@ public class PipeManager : MonoBehaviour
             audioSource.PlayOneShot(rotateSound);
     }
 
+    public void PlayCombineSlotSound()
+    {
+        if (combineSlotSound != null)
+            audioSource.PlayOneShot(combineSlotSound);
+    }
+
+    public void PlayCombineSuccessSound()
+    {
+        if (combineSuccessSound != null)
+            audioSource.PlayOneShot(combineSuccessSound);
+    }
+
     public bool IsLevel1Completed() => GameManager.Instance.LevelCompleted.Length > 0 && GameManager.Instance.LevelCompleted[0];
     public bool IsLevel2Completed() => GameManager.Instance.LevelCompleted.Length > 1 && GameManager.Instance.LevelCompleted[1];
 
@@ -613,10 +628,16 @@ public class PipeManager : MonoBehaviour
             }
 
             slot.tag = "CombineSlot";
+            if (combineSlotLabelPrefab != null)
+            {
+                GameObject label = Instantiate(combineSlotLabelPrefab, slot.transform);
+
+                label.transform.localPosition = new Vector3(0, 1.5f, 0f);
+                label.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            }
         }
         else
         {
-            //Debug.LogWarning("CombineSlotPrefab 未设置，将无法合成外部管件。");
         }
     }
 
