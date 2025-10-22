@@ -604,10 +604,25 @@ public class PipeManager : MonoBehaviour
         foreach (var old in GameObject.FindGameObjectsWithTag("Material"))
             Destroy(old);
 
-        for (int i = 0; i < materialPrefabs.Length; i++)
+        GameObject[] mats = materialPrefabs;
+
+        if (currentLevelIndex == 0)
+        {
+            mats = new GameObject[] { materialPrefabs[0], materialPrefabs[1], materialPrefabs[2],
+                              materialPrefabs[3], materialPrefabs[4], materialPrefabs[5],
+                              materialPrefabs[6] };
+        }
+        else if (currentLevelIndex == 1)
+        {
+            mats = new GameObject[] { materialPrefabs[3], materialPrefabs[1], materialPrefabs[5],
+                              materialPrefabs[0], materialPrefabs[6], materialPrefabs[4],
+                              materialPrefabs[2] };
+        }
+
+        for (int i = 0; i < mats.Length; i++)
         {
             Vector3 spawnPos = new Vector3(startX + i * xSpacing, startY, 0);
-            GameObject mat = Instantiate(materialPrefabs[i], spawnPos, Quaternion.identity);
+            GameObject mat = Instantiate(mats[i], spawnPos, Quaternion.identity);
             mat.tag = "Material";
             mat.transform.localScale = Vector3.one * 4f;   
         }
@@ -630,9 +645,8 @@ public class PipeManager : MonoBehaviour
             slot.tag = "CombineSlot";
             if (combineSlotLabelPrefab != null)
             {
-                GameObject label = Instantiate(combineSlotLabelPrefab, slot.transform);
-
-                label.transform.localPosition = new Vector3(0, 1.5f, 0f);
+                GameObject label = Instantiate(combineSlotLabelPrefab);
+                label.transform.position = slot.transform.position + new Vector3(0, 1.5f, 0f);
                 label.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
             }
         }
