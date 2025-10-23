@@ -95,7 +95,7 @@ public class Tutorial : MonoBehaviour
         float timer = 0f;
         while (timer < displayTime && isShowing)
         {
-            if (Input.GetKeyDown(KeyCode.E)) // ← 修改处
+            if (Input.GetMouseButtonDown(1)||Input.GetMouseButtonDown(0)) // ← 修改处
                 break;
             timer += Time.deltaTime;
             yield return null;
