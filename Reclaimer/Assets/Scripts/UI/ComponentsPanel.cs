@@ -26,6 +26,9 @@ public class ComponentsPanel : MonoBehaviour
     private bool contentVisible = false;        // UI ????????????????
     private Player cachedPlayer;                // ????????/??????
 
+    public AudioSource audioSource;
+    public AudioClip open;
+
     void Awake()
     {
         if (!canvasGroup) canvasGroup = GetComponent<CanvasGroup>();
@@ -51,7 +54,7 @@ public class ComponentsPanel : MonoBehaviour
         if (Input.GetKeyDown(toggleKey))
             Toggle();
 
-        // ???????????????????????/????
+    
         if (isOpen && contentVisible)
             RefreshTextAndBar();
     }
@@ -60,11 +63,10 @@ public class ComponentsPanel : MonoBehaviour
     {
         isOpen = !isOpen;
 
-        // ???? Animator??????§µ?
         if (animator && (showTrigger.Length > 0 || hideTrigger.Length > 0))
         {
-            if (isOpen && showTrigger.Length > 0) animator.SetTrigger(showTrigger);
-            if (!isOpen && hideTrigger.Length > 0) animator.SetTrigger(hideTrigger);
+            if (isOpen && showTrigger.Length > 0) audioSource.PlayOneShot(open);animator.SetTrigger(showTrigger);
+                if (!isOpen && hideTrigger.Length > 0) animator.SetTrigger(hideTrigger);
         }
 
         StopAllCoroutines();
