@@ -20,7 +20,7 @@ public class DialogueTrigger : MonoBehaviour
         get
         {
             // 玩家在碰撞框内 且 当前没有对话在进行 才算可交互
-            var ui = DialogueUI.Instance;
+            var ui = UI_CollectionDialogue.Instance;
             bool dialogueBusy = (ui != null && ui.IsShowing);
             return playerIn && !dialogueBusy;   // playerIn 是你脚本里已有的布尔值
         }
@@ -52,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour
 
         if (Input.GetKeyDown(interactKey))
         {
-            var ui = DialogueUI.Instance;
+            var ui = UI_CollectionDialogue.Instance;
             if (ui == null) { Debug.LogWarning("No DialogueUI in scene."); return; }
 
             // 已经在对话中则交由 UI 自己处理（E 键会补完/下一页）

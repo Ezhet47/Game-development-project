@@ -10,30 +10,30 @@ public class Teleport : MonoBehaviour
     private bool playerInRange = false;
 
     [Header("Requirement")]
-    public int requiredTotal = 7;                 // ÐèÒªµÄÁã¼þÊý
-    [Tooltip("ÓÅÏÈÊ¹ÓÃ ComponentCount.instance.totalComponents£»Èç¹ûÄã²»ÏëÓÃËü£¬¿ÉÒÔÔÚÕâÀïÊÖ¶¯¸²¸Çµ±Ç°ÊýÁ¿£¨>=0 ÉúÐ§£©¡£")]
-    public int currentCountOverride = -1;         // ¿ÉÑ¡¸²¸Ç£¨-1 ±íÊ¾²»ÓÃ£©
+    public int requiredTotal = 7;                 // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ ComponentCount.instance.totalComponentsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>=0 ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½")]
+    public int currentCountOverride = -1;         // ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ç£ï¿½-1 ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ã£ï¿½
 
     [Header("UI Hint")]
-    public TextMeshProUGUI notEnoughText;         // ¡°ÐèÒª¼ñµ½7¸öÁã¼þ¡± ÎÄ±¾£¨¿ÉÑ¡£©
-    public CanvasGroup notEnoughGroup;            // ¿ÉÑ¡£ºÓÃÀ´µ­Èëµ­³ö
-    public string notEnoughMessage = "ÐèÒª¼ñµ½7¸öÁã¼þ";
-    public float hintFade = 0.15f;                // µ­Èë/µ­³öÊ±¼ä
-    public float hintShowTime = 1.25f;            // Í£ÁôÊ±¼ä
+    public TextMeshProUGUI notEnoughText;         // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
+    public CanvasGroup notEnoughGroup;            // ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ­ï¿½ï¿½
+    public string notEnoughMessage = "ï¿½ï¿½Òªï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½ï¿½";
+    public float hintFade = 0.15f;                // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    public float hintShowTime = 1.25f;            // Í£ï¿½ï¿½Ê±ï¿½ï¿½
 
-    // ÓëÆäËüÏµÍ³µÄ¼æÈÝ£¨±ÈÈç¶Ô»°Ê±½ûÓÃ½»»¥£©
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ä¼ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½Ê±ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½
     public bool IsInteractable
     {
         get
         {
-            bool dialogueBusy = DialogueUI.Instance != null && DialogueUI.Instance.IsShowing;
+            bool dialogueBusy = UI_CollectionDialogue.Instance != null && UI_CollectionDialogue.Instance.IsShowing;
             return playerInRange && collide && !dialogueBusy;
         }
     }
 
     private void Awake()
     {
-        // ÈôÓÐÌáÊ¾ UI£¬³õÊ¼»¯ÎªÒþ²Ø
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ UIï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
         if (notEnoughGroup == null && notEnoughText != null)
             notEnoughGroup = notEnoughText.GetComponent<CanvasGroup>();
 
@@ -51,7 +51,7 @@ public class Teleport : MonoBehaviour
     {
         if (!collision.CompareTag("Player")) return;
         playerInRange = true;
-        // ÊÇ·ñµãÁÁ E ½»»¥ÌáÊ¾ÓÉÄãµÄ InteractionDetect ¿ØÖÆ£»ÕâÀï²»Ç¿ÖÆ¸ÉÔ¤
+        // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ E ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ InteractionDetect ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï²»Ç¿ï¿½Æ¸ï¿½Ô¤
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -70,16 +70,16 @@ public class Teleport : MonoBehaviour
 
             if (cur >= requiredTotal)
             {
-                // ? ´ï±ê£ºÖ´ÐÐ´«ËÍ
+                // ? ï¿½ï¿½ê£ºÖ´ï¿½Ð´ï¿½ï¿½ï¿½
                 collide = false;
-                if (otherScript) otherScript.canpress = false; // ¹Øµô E ÌáÊ¾£¨¿ÉÑ¡£©
+                if (otherScript) otherScript.canpress = false; // ï¿½Øµï¿½ E ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 
                 GameManager.Instance.HasPlayedPuzzle = false;
                 GameManager.Instance.GoToMainSceneBefore();
             }
             else
             {
-                // ? Î´´ï±ê£ºÌáÊ¾¡°ÐèÒª¼ñµ½7¸öÁã¼þ¡±
+                // ? Î´ï¿½ï¿½ê£ºï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 ShowNotEnoughHint();
             }
         }
@@ -87,22 +87,22 @@ public class Teleport : MonoBehaviour
 
     private int GetCurrentCollected()
     {
-        // 1) ÈôÊÖ¶¯¸²¸ÇÓÐÐ§£¬ÓÅÏÈÓÃ
+        // 1) ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (currentCountOverride >= 0) return currentCountOverride;
 
-        // 2) Ä¬ÈÏ´Ó ComponentCount ¶ÁÈ¡£¨ÄãÏîÄ¿ÀïÓÐËü£©
+        // 2) Ä¬ï¿½Ï´ï¿½ ComponentCount ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (ComponentCount.instance != null)
             return ComponentCount.instance.totalComponents;
 
-        // 3) ÕÒ²»µ½À´Ô´Ê±£¬·µ»Ø 0£¨±ÜÃâ±¨´í£©
+        // 3) ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½â±¨ï¿½ï¿½ï¿½ï¿½
         return 0;
     }
 
     private void ShowNotEnoughHint()
     {
-        if (notEnoughText == null && notEnoughGroup == null) return; // Ã»Á¬ UI ¾Í¾²Ä¬·µ»Ø
+        if (notEnoughText == null && notEnoughGroup == null) return; // Ã»ï¿½ï¿½ UI ï¿½Í¾ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½
 
-        // È·±£ÎÄ±¾ÄÚÈÝ
+        // È·ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
         if (notEnoughText != null && !string.IsNullOrEmpty(notEnoughMessage))
             notEnoughText.text = notEnoughMessage;
 
@@ -117,7 +117,7 @@ public class Teleport : MonoBehaviour
             notEnoughGroup.blocksRaycasts = true;
             notEnoughGroup.interactable = true;
 
-            // µ­Èë
+            // ï¿½ï¿½ï¿½ï¿½
             float t = 0f;
             while (t < hintFade)
             {
@@ -127,10 +127,10 @@ public class Teleport : MonoBehaviour
             }
             notEnoughGroup.alpha = 1f;
 
-            // Í£Áô
+            // Í£ï¿½ï¿½
             yield return new WaitForSeconds(hintShowTime);
 
-            // µ­³ö
+            // ï¿½ï¿½ï¿½ï¿½
             t = 0f;
             while (t < hintFade)
             {
@@ -144,7 +144,7 @@ public class Teleport : MonoBehaviour
         }
         else if (notEnoughText != null)
         {
-            // Ã»ÓÐ CanvasGroup ¾ÍÖ±½ÓÉÁÏÖÒ»Ð¡»á¶ù
+            // Ã»ï¿½ï¿½ CanvasGroup ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð¡ï¿½ï¿½ï¿½
             notEnoughText.gameObject.SetActive(true);
             yield return new WaitForSeconds(hintShowTime);
             notEnoughText.gameObject.SetActive(false);

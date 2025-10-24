@@ -6,25 +6,24 @@ using System.Collections;
 public class ComponentsPanel : MonoBehaviour
 {
     [Header("Toggle")]
-    public KeyCode toggleKey = KeyCode.Space;   // ?????
-    public float fadeTime = 0.15f;              // ??ç–???????
+    public KeyCode toggleKey = KeyCode.Space;   
+    public float fadeTime = 0.15f;              
 
     [Header("UI Refs")]
-    public CanvasGroup canvasGroup;             // ?????????? CanvasGroup
-    public TextMeshProUGUI counterText;         // ??X / 7?? ???
-    public Image progressFill;                  // ?????????????Image type = Filled??
-
+    public CanvasGroup canvasGroup;             
+    public TextMeshProUGUI counterText;         
+    public Image progressFill;                 
     [Header("Goal")]
-    public int targetTotal = 7;                 // ????????????
+    public int targetTotal = 7;                
 
     [Header("Animator (???)")]
-    public Animator animator;                   // ???ß‘???/??????????????
-    public string showTrigger = "Show";         // ????????????? Trigger ??
-    public string hideTrigger = "Hide";         // ???????????? Trigger ??
+    public Animator animator;                   
+    public string showTrigger = "Show";        
+    public string hideTrigger = "Hide";         
 
-    private bool isOpen = false;                // ???????
-    private bool contentVisible = false;        // UI ????????????????
-    private Player cachedPlayer;                // ????????/??????
+    private bool isOpen = false;               
+    private bool contentVisible = false;       
+    private Player cachedPlayer;                
 
     public AudioSource audioSource;
     public AudioClip open;
@@ -33,20 +32,17 @@ public class ComponentsPanel : MonoBehaviour
     {
         if (!canvasGroup) canvasGroup = GetComponent<CanvasGroup>();
         if (!canvasGroup) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-
-        // ?????????????ÂÔ?????
+        
         canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
         isOpen = false;
         contentVisible = false;
-
-        // ??????????? canMove ?????
-        cachedPlayer = FindObjectOfType<Player>();
-
-        // ???????? Animator???????? UnscaledTime ????? ???? ???????????????
+        
+        cachedPlayer = FindFirstObjectByType<Player>();
+        
         if (animator)
-            animator.updateMode = AnimatorUpdateMode.Normal; // ??????????∞È??
+            animator.updateMode = AnimatorUpdateMode.Normal;
     }
 
     void Update()
@@ -71,12 +67,10 @@ public class ComponentsPanel : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(Fade(isOpen));
-
-        // ? ???????????/??????????
+        
         if (cachedPlayer != null)
             cachedPlayer.canMove = !isOpen;
-
-        // ??????????????????????????????
+        
         if (counterText) counterText.alpha = 0f;
         contentVisible = false;
     }
@@ -91,13 +85,12 @@ public class ComponentsPanel : MonoBehaviour
         float t = 0f;
         while (t < fadeTime)
         {
-            t += Time.deltaTime; // ????????????? Time.deltaTime
+            t += Time.deltaTime; 
             canvasGroup.alpha = Mathf.Lerp(start, end, t / fadeTime);
             yield return null;
         }
         canvasGroup.alpha = end;
-
-        // ??????????????????????????
+        
         if (show)
         {
             yield return new WaitForSeconds(0.05f);
@@ -126,7 +119,7 @@ public class ComponentsPanel : MonoBehaviour
             }
             counterText.alpha = 1f;
         }
-        // ?????¶≤??????????????????
+        
         RefreshTextAndBar();
     }
 
@@ -145,7 +138,6 @@ public class ComponentsPanel : MonoBehaviour
 
     private void OnDisable()
     {
-        // ??å„????????????????
         if (cachedPlayer != null)
             cachedPlayer.canMove = true;
 

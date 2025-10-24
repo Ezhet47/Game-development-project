@@ -4,9 +4,9 @@ using System.Collections;
 
 public class Tutorial : MonoBehaviour
 {
-    public TextMeshProUGUI text;            // 可在 Inspector 指定；若为空，脚本会自动查找子物体里的 TMP
+    public TextMeshProUGUI text;           
     public float displayTime = 5f;
-    public CanvasGroup canvasGroup;         // 可在 Inspector 指定；若为空会自动获取或创建
+    public CanvasGroup canvasGroup;         
 
     [Header("Auto Start")]
     [TextArea] public string startMessage = "Welcome!";
@@ -14,17 +14,14 @@ public class Tutorial : MonoBehaviour
 
     private Coroutine currentRoutine;
     private bool isShowing = false;
-
-    // 缓存玩家引用，用来控制 canMove
+    
     private Player cachedPlayer;
 
     void Awake()
     {
-        // 自动查找 TextMeshProUGUI（在子物体上）
         if (text == null)
             text = GetComponentInChildren<TextMeshProUGUI>(true);
-
-        // 自动获取或创建 CanvasGroup（通常在同一物体上）
+        
         if (canvasGroup == null)
         {
             canvasGroup = GetComponent<CanvasGroup>();
@@ -33,8 +30,7 @@ public class Tutorial : MonoBehaviour
                 canvasGroup = gameObject.AddComponent<CanvasGroup>();
             }
         }
-
-        // 初始隐藏
+        
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
@@ -42,8 +38,7 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        // 尝试缓存 Player（若 Start 时 Player 尚未 Awake，也会在 Show 时再次查找）
-        cachedPlayer = FindObjectOfType<Player>();
+        cachedPlayer = FindFirstObjectByType<Player>();
 
         if (showOnStart)
             Show(startMessage);
@@ -53,8 +48,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!gameObject.activeInHierarchy)
             gameObject.SetActive(true);
-
-        // 如果 text 还是 null，再次尝试查找（以防你在运行时才创建子对象）
+        
         if (text == null)
             text = GetComponentInChildren<TextMeshProUGUI>(true);
 
@@ -66,21 +60,18 @@ public class Tutorial : MonoBehaviour
     private IEnumerator ShowAndHide()
     {
         isShowing = true;
-
-        // 禁止玩家移动（若找到 player）
+        
         if (cachedPlayer == null)
-            cachedPlayer = FindObjectOfType<Player>();
+            cachedPlayer = FindFirstObjectByType<Player>();
         if (cachedPlayer != null)
             cachedPlayer.canMove = false;
-
-        // 启用交互阻挡（防止玩家点击场景）
+        
         if (canvasGroup != null)
         {
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
         }
-
-        // 淡入
+        
         float t = 0f;
         float fadeIn = 0.25f;
         while (t < fadeIn)
@@ -90,18 +81,16 @@ public class Tutorial : MonoBehaviour
             yield return null;
         }
         if (canvasGroup != null) canvasGroup.alpha = 1f;
-
-        // ? 显示计时：只能按下 E 键 才关闭
+        
         float timer = 0f;
         while (timer < displayTime && isShowing)
         {
-            if (Input.GetMouseButtonDown(1)||Input.GetMouseButtonDown(0)) // ← 修改处
+            if (Input.GetMouseButtonDown(1)||Input.GetMouseButtonDown(0)) 
                 break;
             timer += Time.deltaTime;
             yield return null;
         }
-
-        // 淡出
+        
         t = 0f;
         float fadeOut = 0.25f;
         while (t < fadeOut)
@@ -111,28 +100,25 @@ public class Tutorial : MonoBehaviour
             yield return null;
         }
 
-        if (canvasGroup != null) canvasGroup.alpha = 0f;
-        // 隐藏 UI
+        if (canvasGroup != null) 
+            canvasGroup.alpha = 0f;
+
         gameObject.SetActive(false);
         isShowing = false;
 
-        // 恢复玩家移动
+  
         if (cachedPlayer == null)
-            cachedPlayer = FindObjectOfType<Player>();
+            cachedPlayer = FindFirstObjectByType<Player>();
         if (cachedPlayer != null)
             cachedPlayer.canMove = true;
-
-        // 恢复交互阻挡
+        
         if (canvasGroup != null)
         {
             canvasGroup.blocksRaycasts = false;
             canvasGroup.interactable = false;
         }
     }
-
-    /// <summary>
-    /// 外部可以调用取消当前提示并恢复玩家控制
-    /// </summary>
+    
     public void AbortAndHide()
     {
         StopAllCoroutines();
@@ -146,7 +132,7 @@ public class Tutorial : MonoBehaviour
         gameObject.SetActive(false);
 
         if (cachedPlayer == null)
-            cachedPlayer = FindObjectOfType<Player>();
+            cachedPlayer = FindFirstObjectByType<Player>();
         if (cachedPlayer != null)
             cachedPlayer.canMove = true;
     }
