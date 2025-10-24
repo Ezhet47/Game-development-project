@@ -16,7 +16,7 @@ public class ComponentsPanel : MonoBehaviour
     [Header("Goal")]
     public int targetTotal = 7;                
 
-    [Header("Animator (???)")]
+    [Header("Animator")]
     public Animator animator;                   
     public string showTrigger = "Show";        
     public string hideTrigger = "Hide";         
