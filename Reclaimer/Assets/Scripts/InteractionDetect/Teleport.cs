@@ -10,18 +10,18 @@ public class Teleport : MonoBehaviour
     private bool playerInRange = false;
 
     [Header("Requirement")]
-    public int requiredTotal = 7;                 // ��Ҫ�������
-    [Tooltip("����ʹ�� ComponentCount.instance.totalComponents������㲻�������������������ֶ����ǵ�ǰ������>=0 ��Ч����")]
-    public int currentCountOverride = -1;         // ��ѡ���ǣ�-1 ��ʾ���ã�
+    public int requiredTotal = 7;            
+    [Tooltip("ComponentCount.instance.totalComponents>=0 ")]
+    public int currentCountOverride = -1;         
 
     [Header("UI Hint")]
-    public TextMeshProUGUI notEnoughText;         // ����Ҫ��7������� �ı�����ѡ��
-    public CanvasGroup notEnoughGroup;            // ��ѡ���������뵭��
-    public string notEnoughMessage = "��Ҫ��7�����";
-    public float hintFade = 0.15f;                // ����/����ʱ��
-    public float hintShowTime = 1.25f;            // ͣ��ʱ��
+    public TextMeshProUGUI notEnoughText;      
+    public CanvasGroup notEnoughGroup;          
+    public string notEnoughMessage = "0";
+    public float hintFade = 0.15f;              
+    public float hintShowTime = 1.25f;            
 
-    // ������ϵͳ�ļ��ݣ�����Ի�ʱ���ý�����
+
     public bool IsInteractable
     {
         get
@@ -33,7 +33,6 @@ public class Teleport : MonoBehaviour
 
     private void Awake()
     {
-        // ������ʾ UI����ʼ��Ϊ����
         if (notEnoughGroup == null && notEnoughText != null)
             notEnoughGroup = notEnoughText.GetComponent<CanvasGroup>();
 
@@ -51,7 +50,6 @@ public class Teleport : MonoBehaviour
     {
         if (!collision.CompareTag("Player")) return;
         playerInRange = true;
-        // �Ƿ���� E ������ʾ����� InteractionDetect ���ƣ����ﲻǿ�Ƹ�Ԥ
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -70,16 +68,14 @@ public class Teleport : MonoBehaviour
 
             if (cur >= requiredTotal)
             {
-                // ? ��꣺ִ�д���
                 collide = false;
-                if (otherScript) otherScript.canpress = false; // �ص� E ��ʾ����ѡ��
+                if (otherScript) otherScript.canpress = false; 
 
                 GameManager.Instance.HasPlayedPuzzle = false;
                 GameManager.Instance.GoToMainSceneBefore();
             }
             else
             {
-                // ? δ��꣺��ʾ����Ҫ��7�������
                 ShowNotEnoughHint();
             }
         }
@@ -87,22 +83,17 @@ public class Teleport : MonoBehaviour
 
     private int GetCurrentCollected()
     {
-        // 1) ���ֶ�������Ч��������
         if (currentCountOverride >= 0) return currentCountOverride;
 
-        // 2) Ĭ�ϴ� ComponentCount ��ȡ������Ŀ��������
         if (ComponentCount.instance != null)
             return ComponentCount.instance.totalComponents;
-
-        // 3) �Ҳ�����Դʱ������ 0�����ⱨ����
         return 0;
     }
 
     private void ShowNotEnoughHint()
     {
-        if (notEnoughText == null && notEnoughGroup == null) return; // û�� UI �;�Ĭ����
+        if (notEnoughText == null && notEnoughGroup == null) return; 
 
-        // ȷ���ı�����
         if (notEnoughText != null && !string.IsNullOrEmpty(notEnoughMessage))
             notEnoughText.text = notEnoughMessage;
 
@@ -117,7 +108,6 @@ public class Teleport : MonoBehaviour
             notEnoughGroup.blocksRaycasts = true;
             notEnoughGroup.interactable = true;
 
-            // ����
             float t = 0f;
             while (t < hintFade)
             {
@@ -127,10 +117,7 @@ public class Teleport : MonoBehaviour
             }
             notEnoughGroup.alpha = 1f;
 
-            // ͣ��
             yield return new WaitForSeconds(hintShowTime);
-
-            // ����
             t = 0f;
             while (t < hintFade)
             {
@@ -144,7 +131,6 @@ public class Teleport : MonoBehaviour
         }
         else if (notEnoughText != null)
         {
-            // û�� CanvasGroup ��ֱ������һС���
             notEnoughText.gameObject.SetActive(true);
             yield return new WaitForSeconds(hintShowTime);
             notEnoughText.gameObject.SetActive(false);

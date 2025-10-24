@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    public int score = 1;                 // ?????????????? 0 ????????????
+    public int score = 1;                
     private bool collide = true;
     private bool playerInRange = false;
 
@@ -36,7 +36,6 @@ public class Collectable : MonoBehaviour
 
         Popup popup = Instantiate(PopupPrefab);
 
-        // ?¨¢???????????????? QTE ????
         Transform target = where ? where : transform;
         Vector3 worldPos = GetTopOfBounds(target);
 
@@ -67,17 +66,12 @@ public class Collectable : MonoBehaviour
     {
         if (playerInRange && collide && Input.GetKeyDown(KeyCode.E))
         {
-            // ??????????QTE??????+????¦Ä???
             collide = false;
             if (otherScript) otherScript.canpress = false;
-
-            // ??????????
             if (cachedPlayer) cachedPlayer.canMove = false;
 
-            // ?Ú…?????
             Transform focus = focusPoint ? focusPoint : transform;
 
-            // ????QTE
             UI_QTE.Instance.StartSkillCheck(
                 focus,
 success: () =>
@@ -104,7 +98,6 @@ success: () =>
 },
                 fail: () =>
                 {
-                    // ?????????????
                     if (cachedPlayer) cachedPlayer.canMove = true;
                     collide = true;
                     if (otherScript) otherScript.canpress = true;

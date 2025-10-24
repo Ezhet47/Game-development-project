@@ -5,16 +5,12 @@ public class InteractionDetect : MonoBehaviour
     public GameObject buttonSprite;
     public Transform playerTrans;
     public bool canpress;
-
-    // ??????????????????????????????????????
     private Collectable current;
 
     private void Update()
     {
-        // ???/???? E
         if (buttonSprite) buttonSprite.SetActive(canpress);
 
-        // ?????
         if (canpress && playerTrans && buttonSprite)
         {
             buttonSprite.transform.localScale = -playerTrans.localScale;
@@ -27,12 +23,12 @@ public class InteractionDetect : MonoBehaviour
 
         var col = other.GetComponentInParent<Collectable>();
         var dlg = other.GetComponentInParent<DialogueTrigger>();
-        var tp = other.GetComponentInParent<Teleport>();     // ? ????
+        var tp = other.GetComponentInParent<Teleport>();     
 
         bool available = false;
         if (col != null) available |= col.IsInteractable;
         if (dlg != null) available |= dlg.IsInteractable;
-        if (tp != null) available |= tp.IsInteractable;      // ? ????
+        if (tp != null) available |= tp.IsInteractable;      
 
         canpress = available;
     }
@@ -41,14 +37,12 @@ public class InteractionDetect : MonoBehaviour
     {
         if (!other.CompareTag("Interactable")) return;
 
-        // ????????¦¶????? E
         if (current && other.GetComponentInParent<Collectable>() == current)
             current = null;
 
         canpress = false;
     }
 
-    // ???????????????????????? Collectable ?????????¡Â???
     public void ForceHidePrompt()
     {
         canpress = false;
