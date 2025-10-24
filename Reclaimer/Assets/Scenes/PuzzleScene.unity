@@ -4953,7 +4953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6991649084b694599d227e13f08cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClickSound: {fileID: 8300000, guid: 18043cb1a89560645875af370fd8040b, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: 2c70fc367de3ca245b4acafbc1a4fb18, type: 3}
 --- !u!114 &1676752808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5867,7 +5867,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 26.645851, y: 26.666666, z: 1}
+  m_LocalScale: {x: 59.571968, y: 26.666666, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
