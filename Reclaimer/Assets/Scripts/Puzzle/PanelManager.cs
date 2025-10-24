@@ -118,7 +118,7 @@ public class PanelManager : MonoBehaviour
         panelTest.SetActive(true);
         //Debug.Log("Display Panel_Test (Verification)");
         var toolManager = GameObject.Find("ToolManager");
-        Debug.Log($"[ShowPanelTest] ToolManager found={toolManager != null}, activeSelf={toolManager?.activeSelf}, activeInHierarchy={toolManager?.activeInHierarchy}");
+        //Debug.Log($"[ShowPanelTest] ToolManager found={toolManager != null}, activeSelf={toolManager?.activeSelf}, activeInHierarchy={toolManager?.activeInHierarchy}");
         SetToolVisibility(true);
 
         //StartCoroutine(ReturnToMainAfterDelay(5f));

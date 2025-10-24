@@ -105,12 +105,12 @@ public class PipeManager : MonoBehaviour
 
                 if (currentLevelIndex == 0)
                 {
-                    // 第一关：最后一行，第4列
+                    // Level 1: Row 1, Column 4
                     tempPipe.IsDraggable = (i == _level.Row - 1 && j == 3);
                 }
                 else if (currentLevelIndex == 1)
                 {
-                    // 第二关：第4行，第4列 和 第4行，第3列
+                    // Level 2: Row 2, Column 4 and Row 4, Column 3
                     bool first = (i == _level.Row - 4 && j == 2);
                     bool second = (i == _level.Row - 2 && j == 3); 
                     tempPipe.IsDraggable = first || second;
