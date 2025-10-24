@@ -5,31 +5,35 @@ public class Object_Clara : Object_NPC
     [Header("Dialogue")]
     [SerializeField] private DialogueLineSO firstDialogueLine;
     [SerializeField] private DialogueLineSO secondDialogueLine;
-
-    private bool switched;
+    
+    private static bool switchedThisSession;
+    private bool subscribed;
 
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
+        
+        if (switchedThisSession && secondDialogueLine != null)
+        {
+            firstDialogueLine = secondDialogueLine;
+        }
     }
 
     public override void Interact()
     {
         base.Interact();
+
+        bool canSwitch = (firstDialogueLine != null && secondDialogueLine != null);
         
-        bool canSwitch = (secondDialogueLine != null);
+        var startLine = (switchedThisSession && canSwitch) ? secondDialogueLine : firstDialogueLine;
         
-        var startLine = (switched && canSwitch) ? secondDialogueLine : firstDialogueLine;
-        
-        if (!switched && canSwitch && ui != null && ui.dialogueUI != null)
+        bool showingFirstNow = (!switchedThisSession && canSwitch && startLine == firstDialogueLine);
+
+        if (showingFirstNow && ui != null && ui.dialogueUI != null && !subscribed)
         {
             ui.dialogueUI.DialogueClosed -= OnDialogueClosedFirstTime;
             ui.dialogueUI.DialogueClosed += OnDialogueClosedFirstTime;
+            subscribed = true;
         }
 
         ui.OpenDialogueUI(startLine);
@@ -37,14 +41,25 @@ public class Object_Clara : Object_NPC
 
     private void OnDialogueClosedFirstTime()
     {
-        if (secondDialogueLine != null)
+        if (firstDialogueLine != null && secondDialogueLine != null)
         {
-            switched = true;
+            switchedThisSession = true;             
+            firstDialogueLine = secondDialogueLine;     
         }
         
         if (ui != null && ui.dialogueUI != null)
         {
             ui.dialogueUI.DialogueClosed -= OnDialogueClosedFirstTime;
         }
+        subscribed = false;
+    }
+    
+    private void OnDisable()
+    {
+        if (ui != null && ui.dialogueUI != null)
+        {
+            ui.dialogueUI.DialogueClosed -= OnDialogueClosedFirstTime;
+        }
+        subscribed = false;
     }
 }
