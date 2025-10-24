@@ -22,7 +22,7 @@ EditorBuildSettings:
     guid: f63020d9b148ca247adaceb434b0ce03
   - enabled: 1
     path: Assets/Scenes/MainSceneAfter.unity
-    guid: ccedee0f2da46ed4ab8589dab4b10148
+    guid: 0eecedd8fce352c49ab2d2cec9997aa6
   - enabled: 1
     path: Assets/Scenes/TheEnd.unity
     guid: bd4cb5229f47f8d478602c21258fe9dd

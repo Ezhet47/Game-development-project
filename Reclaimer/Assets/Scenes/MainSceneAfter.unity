@@ -2174,7 +2174,7 @@ MonoBehaviour:
   - {fileID: 394537337}
   - {fileID: 1851960184}
   textSpeed: 0.075
-  end: 0
+  end: 1
   typeSfxSource: {fileID: 1291690131}
   typeSfx: {fileID: 8300000, guid: c90b2469aefc8714f8f6de684b7de661, type: 3}
 --- !u!1 &1181458229
