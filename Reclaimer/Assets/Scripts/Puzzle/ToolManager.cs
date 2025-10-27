@@ -116,13 +116,16 @@ public class ToolManager : MonoBehaviour
         EventSystem eventSystem = EventSystem.current;
         if (raycaster == null || eventSystem == null) return;
 
-        float offset = 160f;                            
-        float angleRad = 45f * Mathf.Deg2Rad;       
+        float baseOffset = 160f;
+        float referenceHeight = 1080f;
+        float scaleFactor = Screen.height / referenceHeight;
+        float offset = baseOffset * scaleFactor;
+
+        float angleRad = 45f * Mathf.Deg2Rad;
         Vector2 tipOffset = new Vector2(-Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * offset;
         Vector2 tipPos = screwdriverIcon.position + (Vector3)tipOffset;
 
         PointerEventData eventData = new PointerEventData(eventSystem);
-        //eventData.position = Input.mousePosition;
         eventData.position = tipPos;
 
         List<RaycastResult> results = new List<RaycastResult>();
